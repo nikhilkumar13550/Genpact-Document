@@ -1,204 +1,191 @@
-{
-  "AgentPlaceOfBirthState": {
-    "value": "CA",
-    "confidence": 0.99
-  },
-  "EntityZip": {
-    "value": null,
-    "confidence": 0.129
-  },
-  "AgentName": {
-    "value": "Stuart Phillips",
-    "confidence": 0.782
-  },
-  "FCRADate": {
-    "value": "02/01/2026",
-    "confidence": 0.99
-  },
-  "AgentBusinessSte": {
-    "value": null,
-    "confidence": 0.129
-  },
-  "AgentPlaceOfBirthCountry": {
-    "value": "USA",
-    "confidence": 0.99
-  },
-  "AMLProvider": {
-    "value": "LIMRA",
-    "confidence": 0.99
-  },
-  "AMLPending": {
-    "value": null,
-    "confidence": 0.941
-  },
-  "AMLTrainingDate": {
-    "value": "02/01/2026",
-    "confidence": 0.568
-  },
-  "AgentResidentApt": {
-    "value": null,
-    "confidence": 0.129
-  },
-  "EntityState": {
-    "value": null,
-    "confidence": 0.129
-  },
-  "AMLCompleted": {
-    "value": null,
-    "confidence": 0.979
-  },
-  "CheckingAccountNumber": {
-    "value": "9876543210",
-    "confidence": 0.988
-  },
-  "AgentResidentState": {
-    "value": "CA",
-    "confidence": 0.99
-  },
-  "AgentBusinessStreet": {
-    "value": "PO Box 43",
-    "confidence": 0.99
-  },
-  "IndividualAppointment": {
-    "value": null,
-    "confidence": 0.99
-  },
-  "PreferredAddressResident": {
-    "value": null,
-    "confidence": 0.99
-  },
-  "BankName": {
-    "value": "ABC Corporations, Inc",
-    "confidence": 0.754
-  },
-  "AgentNPN": {
-    "value": "543210",
-    "confidence": 0.99
-  },
-  "EntityCity": {
-    "value": null,
-    "confidence": 0.129
-  },
-  "EntityStreet": {
-    "value": null,
-    "confidence": 0.129
-  },
-  "SignatureFCRA": {
-    "value": null,
-    "confidence": 0.995
-  },
-  "EntityEmailAddress": {
-    "value": null,
-    "confidence": 0.129
-  },
-  "EntityNPN": {
-    "value": null,
-    "confidence": 0.129
-  },
-  "AgentPlaceofBirthCity": {
-    "value": "Little Rock",
-    "confidence": 0.99
-  },
-  "AgentResidentCity": {
-    "value": "Little Rock",
-    "confidence": 0.99
-  },
-  "AgentResidentStreet": {
-    "value": "3210 Palm Beach",
-    "confidence": 0.99
-  },
-  "PreferredAddressBusiness": {
-    "value": null,
-    "confidence": 0.99
-  },
-  "EntitySte": {
-    "value": null,
-    "confidence": 0.129
-  },
-  "AgentDOB": {
-    "value": "1985-01-01",
-    "confidence": 0.99
-  },
-  "ResidentStateAppointment": {
-    "value": "CA",
-    "confidence": 0.99
-  },
-  "EntityBusinessPhone": {
-    "value": null,
-    "confidence": 0.129
-  },
-  "DeclarationDate": {
-    "value": "02/01/2026",
-    "confidence": 0.99
-  },
-  "AgentBusinessZip": {
-    "value": "12341",
-    "confidence": 0.99
-  },
-  "BankRoutingNumber": {
-    "value": "121000012",
-    "confidence": 0.99
-  },
-  "AgentResidentZip": {
-    "value": "12341",
-    "confidence": 0.99
-  },
-  "SignatureDeclaration": {
-    "value": null,
-    "confidence": 0.99
-  },
-  "EntityName": {
-    "value": null,
-    "confidence": 0.129
-  },
-  "EntityAppointment": {
-    "value": null,
-    "confidence": 0.99
-  },
-  "EntityBusinessFax": {
-    "value": null,
-    "confidence": 0.129
-  },
-  "AgentEmailAddress": {
-    "value": "stuart.phillips@test.com",
-    "confidence": 0.99
-  },
-  "AgentBusinessCity": {
-    "value": "Little Rock",
-    "confidence": 0.99
-  },
-  "AgentBusinessFax": {
-    "value": "698-666-1111",
-    "confidence": 0.99
-  },
-  "AgentBusinessPhone": {
-    "value": "698-896-1234",
-    "confidence": 0.99
-  },
-  "AgentBusinessState": {
-    "value": "CA",
-    "confidence": 0.99
-  }
-}
+Process Walkthrough - SBMMR - SA Data Manipulation & MRT Completion
+February 10, 2026
+Expires in 9 days
+•2 views•SharePoint App•HD
+Transcript. Use arrow keys to navigate between transcript entries. Select an entry to navigate the media to the time of the entry.
+
+
+Search
+
+AI-generated content may be incorrect
+
+Ron Allan Lustre started transcription
 
+Ron Allan Lustre
+0 minutes 4 seconds0:04
+Ron Allan Lustre 0 minutes 4 seconds
+This is SA data manipulation and SA data MRP completion. So basically we want to see the end to end process and.
+Ron Allan Lustre 0 minutes 19 seconds
+The tools and systems being used, if there are templates how to fill that out and like basically when you do like copy paste how you're doing it from.
+Ron Allan Lustre 0 minutes 34 seconds
+One system to another. So that's uh basically the goal for this uh session.
 
+Carlo James Caguiat Blacano
+0 minutes 42 seconds0:42
+Carlo James Caguiat Blacano 0 minutes 42 seconds
+Right.
+KN
 
+Kumar, Nikhil
+0 minutes 42 seconds0:42
+Kumar, Nikhil 0 minutes 42 seconds
+OK, OK, right.
 
-{
-    "AgentPlaceOfBirthState": {
-        "value": "TX",
-        "confidence": 0.96
-    },
-    "AgentName": {
-        "value": "Michael Brown",
-        "confidence": 0.82
-    },
-    "AgentDOB": {
-        "value": "1990-07-15",
-        "confidence": 0.91
-    },
-    "AgentEmailAddress": {
-        "value": "michael.brown@test.com",
-        "confidence": 0.75
-    }
-}
+Carlo James Caguiat Blacano
+0 minutes 45 seconds0:45
+Carlo James Caguiat Blacano 0 minutes 45 seconds
+All right, yeah, yeah, I'll share my screen now and please let me know if you're able to see the screen.
+
+Ron Allan Lustre
+0 minutes 46 seconds0:46
+Ron Allan Lustre 0 minutes 46 seconds
+If you're ready, uh, James, uh, please proceed. You can share your screen.
+SA
+
+Sharma, Ajay
+1 minute1:00
+Sharma, Ajay 1 minute
+Yes.
+
+Ron Allan Lustre
+1 minute 1 second1:01
+Ron Allan Lustre 1 minute 1 second
+Yes.
+
+Carlo James Caguiat Blacano
+1 minute 2 seconds1:02
+Carlo James Caguiat Blacano 1 minute 2 seconds
+All right. So yeah, as you know, we may not going to be able to use a live account. So we prepared some datas that similar to the one that we're using and.
+SA
+Sharma, Ajay
+12 minutes 39 seconds12:39
+Sharma, Ajay 12 minutes 39 seconds
+OK, OK.
+
+Carlo James Caguiat Blacano
+12 minutes 39 seconds12:39
+Carlo James Caguiat Blacano 12 minutes 39 seconds
+It depends. Yeah, it depends on the category given. Sometimes for Class B, they are the owners, only the owner and then Class A all other employees. So it depends.
+SA
+Sharma, Ajay
+12 minutes 41 seconds12:41
+Sharma, Ajay 12 minutes 41 seconds
+Mhm.
+Sharma, Ajay 12 minutes 52 seconds
+OK. OK. Yeah.
+
+Carlo James Caguiat Blacano
+12 minutes 57 seconds12:57
+Carlo James Caguiat Blacano 12 minutes 57 seconds
+And then for sorry, for the date of birth, we only need the years and month. So for this we're just going to select the last two numbers for the year and then for the month.
+SA
+Sharma, Ajay
+13 minutes 13 seconds13:13
+Sharma, Ajay 13 minutes 13 seconds
+OK.
+
+Carlo James Caguiat Blacano
+13 minutes 14 seconds13:14
+Carlo James Caguiat Blacano 13 minutes 14 seconds
+All right. And then we're just going to put it on this file.
+Carlo James Caguiat Blacano 13 minutes 23 seconds
+Alright, so just going to like once this was completed and then uh, we're going to generate a quotation number. So the quotation number is where the file that we're going to save like for example for this one.
+Carlo James Caguiat Blacano 13 minutes 41 seconds
+We're just going to search and then we're going, we're going to generate this quotation number on this application that we're using and this application also the the one that we are using for merit reports that are the downloads that we need to use for.
+Carlo James Caguiat Blacano 14 minutes
+Data entry for on this mainframe also in in MRT.
+Carlo James Caguiat Blacano 14 minutes 8 seconds
+And on the MMRT, which is the last, the last step that we're using, let's just go into open this file.
+Carlo James Caguiat Blacano 14 minutes 22 seconds
+We also have sample of folder on this, so I'm like I'll just go to open first the sample reports that we're using. So for this one because there's a little multiple categories.
+Carlo James Caguiat Blacano 14 minutes 40 seconds
+That that we are using as well. So oh sorry, this is for notepad. So we're just going to download.
+Carlo James Caguiat Blacano 14 minutes 54 seconds
+OK.
+Carlo James Caguiat Blacano 14 minutes 56 seconds
+Yes, sorry. We're just going to download the if only if they have the the benefits like for example for this they only have life benefits, they only have long-term disability benefits.
+Carlo James Caguiat Blacano 15 minutes 13 seconds
+And then for health and dental, it was already included in the rate summary and also in this is like the like all category.
+Carlo James Caguiat Blacano 15 minutes 28 seconds
+Report. So let's just open this and.
+Carlo James Caguiat Blacano 15 minutes 34 seconds
+Put it in here. Sorry.
+Carlo James Caguiat Blacano 15 minutes 37 seconds
+All right. So for this one, this is like the sample report that we're going to have like this is all for this all for Class A. This is the amount like the salary that they have including including the life benefits, accidental benefits.
+Carlo James Caguiat Blacano 15 minutes 56 seconds
+Long term visibility and then for health this is like the counts that they have and then and then for for the report this is the.
+Carlo James Caguiat Blacano 16 minutes 12 seconds
+The one that we're going to input in here for the mainframe, this one for these are like the amounts that we're going to codes and then for the MRT like this one.
+Carlo James Caguiat Blacano 16 minutes 27 seconds
+Um.
+Carlo James Caguiat Blacano 16 minutes 31 seconds
+Yeah.
+Carlo James Caguiat Blacano 16 minutes 33 seconds
+This this one. So we're just going to open the file for employee life and then also for long term disability. These are the usual tabs that we're only using for employee life. You can see that there are already.
+Carlo James Caguiat Blacano 16 minutes 52 seconds
+Numbers in here. Usually if we're going to download this MRT report, these were all blank and we have to input the amounts manually.
+Carlo James Caguiat Blacano 17 minutes 6 seconds
+So if I'm just going to open this one is for example for for life benefit.
+Carlo James Caguiat Blacano 17 minutes 18 seconds
+So these are like the total amount and then this is the OR they are categorized for male and female employees. So for this one we're going to input those in here.
+Carlo James Caguiat Blacano 17 minutes 34 seconds
+Um.
+Carlo James Caguiat Blacano 17 minutes 41 seconds
+Sorry.
+Carlo James Caguiat Blacano 17 minutes 42 seconds
+Here. So if you can see these are the amounts and then for this tab we're just going to copy the last year's report. Usually they they already have or they already saved from another folder.
+Carlo James Caguiat Blacano 18 minutes 1 second
+We're just going to copy those and then we're just going to put on the current Renewal for this amount. Usually we're going, we're typing it manually because if we're just going to copy this like for example.
+SA
+Sharma, Ajay
+18 minutes 12 seconds18:12
+Sharma, Ajay 18 minutes 12 seconds
+Mhm.
+
+Carlo James Caguiat Blacano
+18 minutes 17 seconds18:17
+Carlo James Caguiat Blacano 18 minutes 17 seconds
+If we're going to copy this, this is not going to be like we can. We cannot copy only for this and this one like for this tab. Usually if we go to copy this, they're just or they will also include this one and also this one which is unnecessary on the report.
+SA
+Sharma, Ajay
+18 minutes 27 seconds18:27
+Sharma, Ajay 18 minutes 27 seconds
+OK.
+Sharma, Ajay 18 minutes 29 seconds
+Mhm.
+
+Carlo James Caguiat Blacano
+18 minutes 40 seconds18:40
+Carlo James Caguiat Blacano 18 minutes 40 seconds
+And if we're going to open this on the like on the note notepad, which yeah, on the notepad.
+SA
+Sharma, Ajay
+18 minutes 40 seconds18:40
+Sharma, Ajay 18 minutes 40 seconds
+Yeah, OK.
+KN
+Kumar, Nikhil
+18 minutes 48 seconds18:48
+Kumar, Nikhil 18 minutes 48 seconds
+Movement.
+
+Carlo James Caguiat Blacano
+18 minutes 53 seconds18:53
+Carlo James Caguiat Blacano 18 minutes 53 seconds
+Let's try.
+Carlo James Caguiat Blacano 18 minutes 58 seconds
+Yeah, it's for this one. Yeah, it's not going to be copied as well as the. It's also copying the unnecessary, the unnecessary numbers.
+SA
+Sharma, Ajay
+19 minutes 12 seconds19:12
+Sharma, Ajay 19 minutes 12 seconds
+Yeah.
+
+Carlo James Caguiat Blacano
+19 minutes 14 seconds19:14
+Carlo James Caguiat Blacano 19 minutes 14 seconds
+So we we're only typing it manually.
+Carlo James Caguiat Blacano 19 minutes 22 seconds
+And then same thing for the LTD or long term disability, we're just going to open this tab and same thing we're just going to like copy or refer on the report.
+Carlo James Caguiat Blacano 19 minutes 38 seconds
+Yeah, we're going to copy this, this one to into this and after that we have to make sure that the total amount in here.
