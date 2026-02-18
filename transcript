@@ -1,61 +1,35 @@
- ┌────────────────────────────────────────────────────────────┐
- │                    User & Work Intake Layer                │
- │------------------------------------------------------------│
- │  • Power Apps (Underwriter Portal)                        │
- │  • SharePoint / Email Intake                               │
- │  • Azure Logic Apps (Workflow Trigger)                     │
- └──────────────────────────────┬─────────────────────────────┘
-                                ↓
- ┌────────────────────────────────────────────────────────────┐
- │                 Data Ingestion & Storage Layer             │
- │------------------------------------------------------------│
- │  • Azure Blob Storage (Raw Files)                         │
- │  • Azure Data Factory (Orchestration)                     │
- │  • Azure SQL Database (Structured Data)                   │
- └──────────────────────────────┬─────────────────────────────┘
-                                ↓
- ┌────────────────────────────────────────────────────────────┐
- │                 Processing & Rules Engine Layer            │
- │------------------------------------------------------------│
- │  • Azure Functions (Python)                               │
- │  • Business Rule Engine (Eligibility + Validation)        │
- │  • Rate Calculation Module                                │
- │  • Data Standardization (Gender, Province, Class)         │
- │  • Age & Benefit Logic Enforcement                        │
- └──────────────────────────────┬─────────────────────────────┘
-                                ↓
- ┌────────────────────────────────────────────────────────────┐
- │         Validation, Reconciliation & AI Intelligence       │
- │------------------------------------------------------------│
- │  • Reconciliation Engine (Totals / Lives / Volumes)       │
- │  • Azure Machine Learning (Anomaly Detection)             │
- │  • Azure Cognitive Services (Document Normalization)      │
- │  • Exception Classification Model                         │
- └──────────────────────────────┬─────────────────────────────┘
-                                ↓
- ┌────────────────────────────────────────────────────────────┐
- │              Integration & Execution Layer                 │
- │------------------------------------------------------------│
- │  • RPA Bots (Power Automate Desktop / UiPath)             │
- │  • API Integrations (If available)                        │
- │  • Secure Gateway (Azure VPN / Zscaler)                   │
- │  • Mainframe Automation                                    │
- │  • MRT System Automation                                   │
- └──────────────────────────────┬─────────────────────────────┘
-                                ↓
- ┌────────────────────────────────────────────────────────────┐
- │                 Monitoring & Insights Layer                │
- │------------------------------------------------------------│
- │  • Azure Monitor & App Insights                           │
- │  • Power BI Dashboard                                     │
- │  • Azure Log Analytics                                    │
- │  • Audit Trail Database                                   │
- └──────────────────────────────┬─────────────────────────────┘
-                                ↓
- ┌────────────────────────────────────────────────────────────┐
- │                  Continuous Improvement Layer              │
- │------------------------------------------------------------│
- │  • Feedback Data Store                                    │
- │  • Model Retraining Pipeline (Azure ML)                   │
- │  • Rule Versioning & Governance                           │
- └────────────────────────────────────────────────────────────┘
+Client Census File (Excel)
+          │
+          ▼
+Azure Blob Storage (Raw Zone)
+          │
+          ▼
+Azure Data Factory (Trigger Pipeline)
+          │
+          ▼
+Azure Functions (Python Processing Engine)
+    - Gender standardization
+    - Province mapping
+    - Age validation rules
+    - Coverage logic
+    - Class validation
+    - DOB transformation
+    - Rate calculation
+          │
+          ▼
+Azure SQL Database
+(Structured Clean Data)
+          │
+          ▼
+MRT Report Generator (Python Service)
+          │
+          ▼
+Azure Blob Storage (Processed Zone)
+          │
+          ▼
+Power BI Dashboard
+(Validation + Monitoring)
+          │
+          ▼
+Mainframe Integration Layer
+(RPA / API / Batch Upload)
