@@ -1,0 +1,707 @@
+Ron Allan Lustre
+0 minutes 4 seconds0:04
+Ron Allan Lustre 0 minutes 4 seconds
+This is SA data manipulation and SA data MRP completion. So basically we want to see the end to end process and.
+Ron Allan Lustre 0 minutes 19 seconds
+The tools and systems being used, if there are templates how to fill that out and like basically when you do like copy paste how you're doing it from.
+Ron Allan Lustre 0 minutes 34 seconds
+One system to another. So that's uh basically the goal for this uh session.
+
+Carlo James Caguiat Blacano
+0 minutes 42 seconds0:42
+Carlo James Caguiat Blacano 0 minutes 42 seconds
+Right.
+KN
+
+Kumar, Nikhil
+0 minutes 42 seconds0:42
+Kumar, Nikhil 0 minutes 42 seconds
+OK, OK, right.
+
+Carlo James Caguiat Blacano
+0 minutes 45 seconds0:45
+Carlo James Caguiat Blacano 0 minutes 45 seconds
+All right, yeah, yeah, I'll share my screen now and please let me know if you're able to see the screen.
+
+Ron Allan Lustre
+0 minutes 46 seconds0:46
+Ron Allan Lustre 0 minutes 46 seconds
+If you're ready, uh, James, uh, please proceed. You can share your screen.
+SA
+
+Sharma, Ajay
+1 minute1:00
+Sharma, Ajay 1 minute
+Yes.
+
+Ron Allan Lustre
+1 minute 1 second1:01
+Ron Allan Lustre 1 minute 1 second
+Yes.
+
+Carlo James Caguiat Blacano
+1 minute 2 seconds1:02
+Carlo James Caguiat Blacano 1 minute 2 seconds
+All right. So yeah, as you know, we may not going to be able to use a live account. So we prepared some datas that similar to the one that we're using and.
+Carlo James Caguiat Blacano 4 minutes 5 seconds
+And for this, we can also determine the type of classes that we have. Usually it was already filled out by the client, so we're just going to copy those and then for gender sometimes.
+Carlo James Caguiat Blacano 4 minutes 23 seconds
+They put on like like the the whole definition like such as male and female. Then sometimes there is letter U which is undetermined. So we're just going to assume.
+Carlo James Caguiat Blacano 4 minutes 38 seconds
+Like every time we're going to use mail and for that the format is only the single letters M or F We don't use the letter U because the system was not going to accept.
+Carlo James Caguiat Blacano 4 minutes 55 seconds
+That letter only an M&F and then for the province, we do have a different types of province in Canada as you know and we do have also a different type of codes. Usually these are three codes.
+Carlo James Caguiat Blacano 5 minutes 12 seconds
+But to give you like an example, this is what we use like just going to open the file here. So this is dialect my cheat sheet.
+Carlo James Caguiat Blacano 5 minutes 27 seconds
+To determine what kind of province that they have, including the from translation from French to English. So for data manipulation this is what we use. So for two codes sometimes.
+Carlo James Caguiat Blacano 5 minutes 42 seconds
+Or usually the the clients only providing this one like for Alberta, ABQC for Quebec, ON for Ontario and then what we do is we're going to update those.
+Carlo James Caguiat Blacano 6 minutes 2 seconds
+Into three codes like, but sometimes it was only for two codes such as BC, New Brunswick, also for Nova Scotia.
+Carlo James Caguiat Blacano 6 minutes 17 seconds
+So this is the codes that we're using and then.
+Carlo James Caguiat Blacano 6 minutes 23 seconds
+For this like this some kind of like like sample of date of birth, but there are like categories like for LTD sometimes or usually the only accepting.
+Carlo James Caguiat Blacano 6 minutes 39 seconds
+65 years old and below or like 64 years old and below. But once the client or like this specific this specific employee reached 65 years old, the long term disability will we have to change it into 0.
+Carlo James Caguiat Blacano 6 minutes 58 seconds
+And then for that life we have to remove as well their benefit if they reach 70 or 75 depending on the plan.
+Carlo James Caguiat Blacano 7 minutes 7 seconds
+And.
+Carlo James Caguiat Blacano 7 minutes 11 seconds
+Also for this for health coverage and dental coverage, we are depending on the.
+Carlo James Caguiat Blacano 7 minutes 21 seconds
+Like for example, if you if they do have a a benefit for health or dental, we're going to put it on zero. So also if they are.
+Carlo James Caguiat Blacano 7 minutes 38 seconds
+It depends also in in different types of health or dental coverage, such as S for single, F for F for family. Sometimes there's letter M which is monoparental or single parent, and then for letter E or sometimes it was blank, which is exempted or waived.
+Carlo James Caguiat Blacano 7 minutes 58 seconds
+And then also earnings, we have to put it, we have to put their earnings so that the system will also calculate.
+Carlo James Caguiat Blacano 8 minutes 13 seconds
+The amount that is needed on the report as well. So once we once we put it on the like once we completed this data that we needed, we're going to put or to input.
+Carlo James Caguiat Blacano 8 minutes 30 seconds
+Those in here, like for example, since this is this is only for six employees, So what we do is we're just going to remove the unnecessary unnecessary numbers.
+Carlo James Caguiat Blacano 8 minutes 45 seconds
+So just go to delete those and then for then we're just going to fill out this status like for this one for classes, we're going to put it in here.
+Carlo James Caguiat Blacano 9 minutes 2 seconds
+O for classes.
+Ron Allan Lustre
+9 minutes 4 seconds9:04
+Ron Allan Lustre 9 minutes 4 seconds
+James, sorry to cut you up. I have a question. Can we go back on the other file for the for the road data?
+
+Carlo James Caguiat Blacano
+9 minutes 5 seconds9:05
+Carlo James Caguiat Blacano 9 minutes 5 seconds
+Just go to pay. No mhm.
+Carlo James Caguiat Blacano 9 minutes 15 seconds
+For the raw data, OK.
+
+Ron Allan Lustre
+9 minutes 16 seconds9:16
+Ron Allan Lustre 9 minutes 16 seconds
+Yep, so for this one for this information in the second tab P under score WD this this all this information comes from sheet one or you have to check the system.
+
+Carlo James Caguiat Blacano
+9 minutes 23 seconds9:23
+Carlo James Caguiat Blacano 9 minutes 23 seconds
+Mhm.
+Carlo James Caguiat Blacano 9 minutes 26 seconds
+Yeah.
+Carlo James Caguiat Blacano 9 minutes 33 seconds
+Yeah, all all the information was was from this sheet one except for the the account. Yeah, for because of the account and classes because sometimes they're just going to put it.
+
+Ron Allan Lustre
+9 minutes 45 seconds9:45
+Ron Allan Lustre 9 minutes 45 seconds
+Account and then.
+
+Carlo James Caguiat Blacano
+9 minutes 52 seconds9:52
+Carlo James Caguiat Blacano 9 minutes 52 seconds
+Like for example for classes, sometimes they leave it, they leave it blank. So we have to refer on this one which is this file that we are using. Like for example let me just get.
+Carlo James Caguiat Blacano 10 minutes 6 seconds
+Let me just get the sample file. I don't know if this is allowed. Are we allowed to check the?
+Ron Allan Lustre
+10 minutes 22 seconds10:22
+Ron Allan Lustre 10 minutes 22 seconds
+Not the actual information, not the. Yeah, Yep. Probably when we're doing the actual development, that's the time that you can share it. Yeah. So that's fine. At least we know that. Yes.
+
+Carlo James Caguiat Blacano
+10 minutes 24 seconds10:24
+Carlo James Caguiat Blacano 10 minutes 24 seconds
+Yeah, the accurate information.
+Carlo James Caguiat Blacano 10 minutes 29 seconds
+Skype.
+Carlo James Caguiat Blacano 10 minutes 31 seconds
+OK.
+Carlo James Caguiat Blacano 10 minutes 33 seconds
+Oh, OK.
+Carlo James Caguiat Blacano 10 minutes 38 seconds
+Yeah, um, like some.
+
+Ron Allan Lustre
+10 minutes 39 seconds10:39
+Ron Allan Lustre 10 minutes 39 seconds
+Two of the information needs to be checked in the system. OK, it's just not provided by the client. Thank you.
+
+Carlo James Caguiat Blacano
+10 minutes 42 seconds10:42
+Carlo James Caguiat Blacano 10 minutes 42 seconds
+Yeah, or if.
+Carlo James Caguiat Blacano 10 minutes 45 seconds
+Yeah, if like for example we're going to search the policy and then the account screen, there will be like there they will list all the active accounts that they have there. Also the how many classes that they have on a specific account. So right like.
+Carlo James Caguiat Blacano 11 minutes 5 seconds
+Those ones. So we'll have to choose what are the active accounts and then we're just going to put it in here. Like for for this sample file they only have one account which is 001 and then for classes they only have Class A and Class B.
+Carlo James Caguiat Blacano 11 minutes 22 seconds
+Like some such of those categories.
+Sharma, Ajay
+11 minutes 26 seconds11:26
+Sharma, Ajay 11 minutes 26 seconds
+So we need to search on the name or on the like on the name of the employee of which account he has.
+
+Carlo James Caguiat Blacano
+11 minutes 27 seconds11:27
+Carlo James Caguiat Blacano 11 minutes 27 seconds
+OK.
+Carlo James Caguiat Blacano 11 minutes 33 seconds
+It's not on the name of the employee, so that's why on this one we only need the other class. So for example for this one, the type of class on this one is.
+KN
+Kumar, Nikhil
+11 minutes 40 seconds11:40
+Kumar, Nikhil 11 minutes 40 seconds
+Yeah.
+
+Carlo James Caguiat Blacano
+11 minutes 50 seconds11:50
+Carlo James Caguiat Blacano 11 minutes 50 seconds
+Probably on the Class A that is the executives including the owner and then for Class B that is the list of the employees or like all other all other employees which is will going to be a category B and then for admins like for administration executives.
+
+Ron Allan Lustre
+11 minutes 54 seconds11:54
+Ron Allan Lustre 11 minutes 54 seconds
+Mhm.
+SA
+Sharma, Ajay
+11 minutes 59 seconds11:59
+Sharma, Ajay 11 minutes 59 seconds
+OK, OK, mhm.
+
+Carlo James Caguiat Blacano
+12 minutes 8 seconds12:08
+Carlo James Caguiat Blacano 12 minutes 8 seconds
+An owner, they will put on Class A.
+SA
+Sharma, Ajay
+12 minutes 11 seconds12:11
+Sharma, Ajay 12 minutes 11 seconds
+So it will be on the based on the occupation, which occupation they have and.
+
+Carlo James Caguiat Blacano
+12 minutes 15 seconds12:15
+Carlo James Caguiat Blacano 12 minutes 15 seconds
+Yeah, some sometimes it will based on the occupation. Sometimes like for example there are Class C or Class 1A. For Class 1A sometimes that they will put it on all the employees on a single parent or that was single parent.
+KN
+Kumar, Nikhil
+12 minutes 24 seconds12:24
+Kumar, Nikhil 12 minutes 24 seconds
+Mm.
+
+Carlo James Caguiat Blacano
+12 minutes 34 seconds12:34
+Carlo James Caguiat Blacano 12 minutes 34 seconds
+And then there are sometimes Class C for seasonal employees or something like that.
+SA
+Sharma, Ajay
+12 minutes 39 seconds12:39
+Sharma, Ajay 12 minutes 39 seconds
+OK, OK.
+
+Carlo James Caguiat Blacano
+12 minutes 39 seconds12:39
+Carlo James Caguiat Blacano 12 minutes 39 seconds
+It depends. Yeah, it depends on the category given. Sometimes for Class B, they are the owners, only the owner and then Class A all other employees. So it depends.
+harma, Ajay
+12 minutes 41 seconds12:41
+Sharma, Ajay 12 minutes 41 seconds
+Mhm.
+Sharma, Ajay 12 minutes 52 seconds
+OK. OK. Yeah.
+
+Carlo James Caguiat Blacano
+12 minutes 57 seconds12:57
+Carlo James Caguiat Blacano 12 minutes 57 seconds
+And then for sorry, for the date of birth, we only need the years and month. So for this we're just going to select the last two numbers for the year and then for the month.
+SA
+Sharma, Ajay
+13 minutes 13 seconds13:13
+Sharma, Ajay 13 minutes 13 seconds
+OK.
+
+Carlo James Caguiat Blacano
+13 minutes 14 seconds13:14
+Carlo James Caguiat Blacano 13 minutes 14 seconds
+All right. And then we're just going to put it on this file.
+Carlo James Caguiat Blacano 13 minutes 23 seconds
+Alright, so just going to like once this was completed and then uh, we're going to generate a quotation number. So the quotation number is where the file that we're going to save like for example for this one.
+Carlo James Caguiat Blacano 13 minutes 41 seconds
+We're just going to search and then we're going, we're going to generate this quotation number on this application that we're using and this application also the the one that we are using for merit reports that are the downloads that we need to use for.
+Carlo James Caguiat Blacano 14 minutes
+Data entry for on this mainframe also in in MRT.
+Carlo James Caguiat Blacano 14 minutes 8 seconds
+And on the MMRT, which is the last, the last step that we're using, let's just go into open this file.
+Carlo James Caguiat Blacano 14 minutes 22 seconds
+We also have sample of folder on this, so I'm like I'll just go to open first the sample reports that we're using. So for this one because there's a little multiple categories.
+Carlo James Caguiat Blacano 14 minutes 40 seconds
+That that we are using as well. So oh sorry, this is for notepad. So we're just going to download.
+Carlo James Caguiat Blacano 14 minutes 54 seconds
+OK.
+Carlo James Caguiat Blacano 14 minutes 56 seconds
+Yes, sorry. We're just going to download the if only if they have the the benefits like for example for this they only have life benefits, they only have long-term disability benefits.
+Carlo James Caguiat Blacano 15 minutes 13 seconds
+And then for health and dental, it was already included in the rate summary and also in this is like the like all category.
+Carlo James Caguiat Blacano 15 minutes 28 seconds
+Report. So let's just open this and.
+Carlo James Caguiat Blacano 15 minutes 34 seconds
+Put it in here. Sorry.
+Carlo James Caguiat Blacano 15 minutes 37 seconds
+All right. So for this one, this is like the sample report that we're going to have like this is all for this all for Class A. This is the amount like the salary that they have including including the life benefits, accidental benefits.
+Carlo James Caguiat Blacano 15 minutes 56 seconds
+Long term visibility and then for health this is like the counts that they have and then and then for for the report this is the.
+Carlo James Caguiat Blacano 16 minutes 12 seconds
+The one that we're going to input in here for the mainframe, this one for these are like the amounts that we're going to codes and then for the MRT like this one.
+Carlo James Caguiat Blacano 16 minutes 27 seconds
+Um.
+Carlo James Caguiat Blacano 16 minutes 31 seconds
+Yeah.
+Carlo James Caguiat Blacano 16 minutes 33 seconds
+This this one. So we're just going to open the file for employee life and then also for long term disability. These are the usual tabs that we're only using for employee life. You can see that there are already.
+Carlo James Caguiat Blacano 16 minutes 52 seconds
+Numbers in here. Usually if we're going to download this MRT report, these were all blank and we have to input the amounts manually.
+Carlo James Caguiat Blacano 17 minutes 6 seconds
+So if I'm just going to open this one is for example for for life benefit.
+Carlo James Caguiat Blacano 17 minutes 18 seconds
+So these are like the total amount and then this is the OR they are categorized for male and female employees. So for this one we're going to input those in here.
+Carlo James Caguiat Blacano 17 minutes 34 seconds
+Um.
+Carlo James Caguiat Blacano 17 minutes 41 seconds
+Sorry.
+Carlo James Caguiat Blacano 17 minutes 42 seconds
+Here. So if you can see these are the amounts and then for this tab we're just going to copy the last year's report. Usually they they already have or they already saved from another folder.
+Carlo James Caguiat Blacano 18 minutes 1 second
+We're just going to copy those and then we're just going to put on the current Renewal for this amount. Usually we're going, we're typing it manually because if we're just going to copy this like for example.
+
+Carlo James Caguiat Blacano 16 minutes 31 seconds
+Yeah.
+Carlo James Caguiat Blacano 16 minutes 33 seconds
+This this one. So we're just going to open the file for employee life and then also for long term disability. These are the usual tabs that we're only using for employee life. You can see that there are already.
+Carlo James Caguiat Blacano 16 minutes 52 seconds
+Numbers in here. Usually if we're going to download this MRT report, these were all blank and we have to input the amounts manually.
+Carlo James Caguiat Blacano 17 minutes 6 seconds
+So if I'm just going to open this one is for example for for life benefit.
+Carlo James Caguiat Blacano 17 minutes 18 seconds
+So these are like the total amount and then this is the OR they are categorized for male and female employees. So for this one we're going to input those in here.
+Carlo James Caguiat Blacano 17 minutes 34 seconds
+Um.
+Carlo James Caguiat Blacano 17 minutes 41 seconds
+Sorry.
+Carlo James Caguiat Blacano 17 minutes 42 seconds
+Here. So if you can see these are the amounts and then for this tab we're just going to copy the last year's report. Usually they they already have or they already saved from another folder.
+Carlo James Caguiat Blacano 18 minutes 1 second
+We're just going to copy those and then we're just going to put on the current Renewal for this amount. Usually we're going, we're typing it manually because if we're just going to copy this like for example.
+SA
+Sharma, Ajay
+18 minutes 12 seconds18:12
+Sharma, Ajay 18 minutes 12 seconds
+Mhm.
+
+Carlo James Caguiat Blacano
+18 minutes 17 seconds18:17
+Carlo James Caguiat Blacano 18 minutes 17 seconds
+If we're going to copy this, this is not going to be like we can. We cannot copy only for this and this one like for this tab. Usually if we go to copy this, they're just or they will also include this one and also this one which is unnecessary on the report.
+SA
+Sharma, Ajay
+18 minutes 27 seconds18:27
+Sharma, Ajay 18 minutes 27 seconds
+OK.
+Sharma, Ajay 18 minutes 29 seconds
+Mhm.
+
+Carlo James Caguiat Blacano
+18 minutes 40 seconds18:40
+Carlo James Caguiat Blacano 18 minutes 40 seconds
+And if we're going to open this on the like on the note notepad, which yeah, on the notepad.
+SA
+Sharma, Ajay
+18 minutes 40 seconds18:40
+Sharma, Ajay 18 minutes 40 seconds
+Yeah, OK.
+KN
+Kumar, Nikhil
+18 minutes 48 seconds18:48
+Kumar, Nikhil 18 minutes 48 seconds
+Movement.
+
+Carlo James Caguiat Blacano
+18 minutes 53 seconds18:53
+Carlo James Caguiat Blacano 18 minutes 53 seconds
+Let's try.
+Carlo James Caguiat Blacano 18 minutes 58 seconds
+Yeah, it's for this one. Yeah, it's not going to be copied as well as the. It's also copying the unnecessary, the unnecessary numbers.
+SA
+Sharma, Ajay
+19 minutes 12 seconds19:12
+Sharma, Ajay 19 minutes 12 seconds
+Yeah.
+Carlo James Caguiat Blacano
+19 minutes 14 seconds19:14
+Carlo James Caguiat Blacano 19 minutes 14 seconds
+So we we're only typing it manually.
+Carlo James Caguiat Blacano 19 minutes 22 seconds
+And then same thing for the LTD or long term disability, we're just going to open this tab and same thing we're just going to like copy or refer on the report.
+Carlo James Caguiat Blacano 19 minutes 38 seconds
+Yeah, we're going to copy this, this one to into this and after that we have to make sure that the total amount in here.
+Carlo James Caguiat Blacano 19 minutes 54 seconds
+Matches on the report like 18,793. This one also should be 18,793 and then on this one as well.
+Carlo James Caguiat Blacano 20 minutes 7 seconds
+And sometimes the report is inaccurate because like on this tab, sometimes if the like the employee reached already 65 years old, it's not going to be included in here.
+Carlo James Caguiat Blacano 20 minutes 25 seconds
+It's not going to be included in here, but sometimes they are including it in here like there is like the for this one there is.
+Carlo James Caguiat Blacano 20 minutes 40 seconds
+There is a lives in here, but there is no amount, but it was going to be counted in here as well. Like it will be on 7 and then eight same amount, but it's not going to be the same thing on this one. So this is the only amount that we need to focus on.
+Carlo James Caguiat Blacano 20 minutes 59 seconds
+When creating a report like this and then once we filled out all the necessary tabs, then we're just going to go on to this account classes and then click on Samurai's account and that's it. Sometimes there is.
+Carlo James Caguiat Blacano 21 minutes 17 seconds
+There is critical illness benefit that we need to put on. They will be on supplemental benefits. We're just going to click on in here like in import from account classes. So if we're going to click this one.
+Carlo James Caguiat Blacano 21 minutes 34 seconds
+It will appear accounting classes and then for the lives and volumes we have to input all those and the rates, current rate and Renewal rate. We have to go on a different, we have to go on a different.
+Carlo James Caguiat Blacano 21 minutes 51 seconds
+App that we're using, we have to search on this and oh, sorry, I have to open the Zscaler. There you go. So we're just going to put it in here.
+Carlo James Caguiat Blacano 22 minutes 7 seconds
+Search the the policy number and then once we have searched the policy number, there are the amounts that was going to be included in there and we're going to put it in here, which is the current rate.
+Carlo James Caguiat Blacano 22 minutes 25 seconds
+And then for the Renewal rate, usually the the formula that we're using is the current rate multiplied by 1.05.
+Carlo James Caguiat Blacano 22 minutes 40 seconds
+And that's it. And then we're just going to save the file, going back to the main menu, then save the file 1st and then exit.
+Carlo James Caguiat Blacano 22 minutes 54 seconds
+And that's what we do.
+Sharma, Ajay
+22 minutes 57 seconds22:57
+Sharma, Ajay 22 minutes 57 seconds
+Can you just show show me the files that you downloaded from merit those?
+
+Carlo James Caguiat Blacano
+23 minutes 3 seconds23:03
+Carlo James Caguiat Blacano 23 minutes 3 seconds
+Oh, sure. Yeah, for this one.
+SA
+Sharma, Ajay
+23 minutes 3 seconds23:03
+Sharma, Ajay 23 minutes 3 seconds
+Text files. Yeah, so yeah, so in this it will only be once they will be. There will be this mention of total number of employees, right?
+
+Carlo James Caguiat Blacano
+23 minutes 15 seconds23:15
+Carlo James Caguiat Blacano 23 minutes 15 seconds
+Right.
+SA
+Sharma, Ajay
+23 minutes 17 seconds23:17
+Sharma, Ajay 23 minutes 17 seconds
+OK, you show me the other one, the EE listing or the live summary. OK, this is OK.
+
+Carlo James Caguiat Blacano
+23 minutes 23 seconds23:23
+Carlo James Caguiat Blacano 23 minutes 23 seconds
+Yeah, for for E listing this is the like the summary report and then for as well for decoding sometimes we can code.
+Carlo James Caguiat Blacano 23 minutes 39 seconds
+Both A&B at the same time, but if they have a different amount in here, like for example this one for vision benefits and like for drugs, they have a different amount like they are separated for two structures.
+Carlo James Caguiat Blacano 23 minutes 58 seconds
+Uh, we have to do separately.
+harma, Ajay
+23 minutes 59 seconds23:59
+Sharma, Ajay 23 minutes 59 seconds
+And.
+Sharma, Ajay 24 minutes 2 seconds
+OK. Can you share the show me the live summary as well once we you know we're OK. So it will be mostly at the end of the page the number of employees will be mentioned, right. The employees detail, yeah this one.
+
+Carlo James Caguiat Blacano
+24 minutes 6 seconds24:06
+Carlo James Caguiat Blacano 24 minutes 6 seconds
+Oh, sure.
+Carlo James Caguiat Blacano 24 minutes 16 seconds
+Uh.
+Carlo James Caguiat Blacano 24 minutes 18 seconds
+Yeah, this one.
+SA
+Sharma, Ajay
+24 minutes 19 seconds24:19
+Sharma, Ajay 24 minutes 19 seconds
+No, no, below which how many? Yeah, this one here. So it will mostly be at the end, yeah.
+
+Carlo James Caguiat Blacano
+24 minutes 22 seconds24:22
+Carlo James Caguiat Blacano 24 minutes 22 seconds
+Hello.
+Carlo James Caguiat Blacano 24 minutes 23 seconds
+Uh, sometimes it.
+Carlo James Caguiat Blacano 24 minutes 26 seconds
+Yeah, sometimes if like for example for life summary, there are some policies or plans that they only have at least 70 years old or 69 years old and below, they will only have.
+Carlo James Caguiat Blacano 24 minutes 41 seconds
+Life like life benefit or life insurance benefit, but once they reach the 70 years old and above, it was going to be removed or the amount will be removed, but the life was still there.
+SA
+Sharma, Ajay
+24 minutes 55 seconds24:55
+Sharma, Ajay 24 minutes 55 seconds
+OK.
+Sharma, Ajay 25 minutes 1 second
+OK, so for each company we'll create 11 file, right? It it's like that.
+
+Carlo James Caguiat Blacano
+25 minutes 8 seconds25:08
+Carlo James Caguiat Blacano 25 minutes 8 seconds
+For this one we already have like we already have a certain application that we're using which is this one and we're just going to download all those all those report. I cannot open this because.
+SA
+Sharma, Ajay
+25 minutes 25 seconds25:25
+Sharma, Ajay 25 minutes 25 seconds
+Mhm.
+
+Carlo James Caguiat Blacano
+25 minutes 25 seconds25:25
+Carlo James Caguiat Blacano 25 minutes 25 seconds
+All the some of the data was going to be popped up and that is subject to PII.
+SA
+Sharma, Ajay
+25 minutes 32 seconds25:32
+Sharma, Ajay 25 minutes 32 seconds
+So after you download all these report then you start working on on those reports right?
+
+Carlo James Caguiat Blacano
+25 minutes 37 seconds25:37
+Carlo James Caguiat Blacano 25 minutes 37 seconds
+There are days that like for example we have to wait for the if there are like changes on the pricing depending on the on their policy.
+SA
+Sharma, Ajay
+25 minutes 52 seconds25:52
+Sharma, Ajay 25 minutes 52 seconds
+Mhm.
+
+Carlo James Caguiat Blacano
+25 minutes 56 seconds25:56
+Carlo James Caguiat Blacano 25 minutes 56 seconds
+We are not allowed yet to download the reports, so like for example for this policy, even though the data was already given before February.
+Carlo James Caguiat Blacano 26 minutes 13 seconds
+We are not allowed yet to download the reports because the pricing will be changed on February 6 and we only downloaded the data just yesterday.
+umar, Nikhil
+26 minutes 31 seconds26:31
+Kumar, Nikhil 26 minutes 31 seconds
+OK.
+
+Carlo James Caguiat Blacano
+26 minutes 33 seconds26:33
+Carlo James Caguiat Blacano 26 minutes 33 seconds
+Yeah, we have to wait first for the the price, if there are pricing changes before we download the like the the report and then once we receive a go signal from the.
+Carlo James Caguiat Blacano 26 minutes 48 seconds
+From the higher ups or for from the BU, then that's the time that we're going to do the the report.
+SA
+Sharma, Ajay
+26 minutes 55 seconds26:55
+Sharma, Ajay 26 minutes 55 seconds
+Mhm.
+Sharma, Ajay 27 minutes 2 seconds
+OK, OK.
+Sharma, Ajay 27 minutes 5 seconds
+Fine.
+
+Carlo James Caguiat Blacano
+27 minutes 5 seconds27:05
+Carlo James Caguiat Blacano 27 minutes 5 seconds
+Yeah, it depends.
+Carlo James Caguiat Blacano 27 minutes 10 seconds
+Also like for example, there are times well that we we have like there are certain months that they don't have any pricing changes. So we are allowed to download everything like download the reports. However there is a certain week that we have.
+Carlo James Caguiat Blacano 27 minutes 30 seconds
+Wait for the Um.
+Carlo James Caguiat Blacano 27 minutes 35 seconds
+For the for the Renewal report to to be done before doing the coding in mainframe.
+Sharma, Ajay
+27 minutes 50 seconds27:50
+Sharma, Ajay 27 minutes 50 seconds
+OK.
+Sharma, Ajay 27 minutes 57 seconds
+So this was the complete process.
+
+Carlo James Caguiat Blacano
+27 minutes 59 seconds27:59
+Carlo James Caguiat Blacano 27 minutes 59 seconds
+Yeah, that is the complete process that we do. There are other employees like if they have like for example for if they have like multiple employees like such as 200 employees and more, there are certain reports.
+SA
+Sharma, Ajay
+28 minutes 1 second28:01
+Sharma, Ajay 28 minutes 1 second
+OK.
+Sharma, Ajay 28 minutes 3 seconds
+Hmm.
+
+Carlo James Caguiat Blacano
+28 minutes 19 seconds28:19
+Carlo James Caguiat Blacano 28 minutes 19 seconds
+That they need to do.
+SA
+Sharma, Ajay
+28 minutes 23 seconds28:23
+Sharma, Ajay 28 minutes 23 seconds
+OK, so there is an exception after a limit of how many employees are there in the company. So if more than 200 then there are certain extra steps that we need to perform.
+
+Carlo James Caguiat Blacano
+28 minutes 25 seconds28:25
+Carlo James Caguiat Blacano 28 minutes 25 seconds
+Yeah.
+Carlo James Caguiat Blacano 28 minutes 31 seconds
+Yeah.
+Carlo James Caguiat Blacano 28 minutes 33 seconds
+That's right.
+SA
+Sharma, Ajay
+28 minutes 35 seconds28:35
+Sharma, Ajay 28 minutes 35 seconds
+Oh, OK.
+
+Ron Allan Lustre
+28 minutes 46 seconds28:46
+Ron Allan Lustre 28 minutes 46 seconds
+James, from sorry, from from your end, if you're doing this process, it's like a continuous one wherein once you're done with the data manipulation, you'll proceed with MRT completion or are there other steps in between?
+SA
+Sharma, Ajay
+28 minutes 47 seconds28:47
+Sharma, Ajay 28 minutes 47 seconds
+OK. Yeah. Yeah. Yeah.
+
+Carlo James Caguiat Blacano
+28 minutes 58 seconds28:58
+Carlo James Caguiat Blacano 28 minutes 58 seconds
+Mhm.
+Carlo James Caguiat Blacano 29 minutes 6 seconds
+For like there is like like like we're doing the data manipulation on the first week. Sometimes we do the the merit download reports on the second week of the month and then we're doing the coding.
+Carlo James Caguiat Blacano 29 minutes 26 seconds
+On the third week of the month that that is the safe days to do those and then for the last month that is where we do the MRT updates or MRT reports.
+
+Ron Allan Lustre
+29 minutes 30 seconds29:30
+Ron Allan Lustre 29 minutes 30 seconds
+OK.
+
+Carlo James Caguiat Blacano
+29 minutes 43 seconds29:43
+Carlo James Caguiat Blacano 29 minutes 43 seconds
+And it was continuous, yeah, for like after doing the MRT, sometimes we are already receiving the the drafts for the next month and that's going to be.
+Carlo James Caguiat Blacano 29 minutes 59 seconds
+That's the time that we're going to do the data manipulation again.
+SA
+Sharma, Ajay
+30 minutes 51 seconds30:51
+Sharma, Ajay 30 minutes 51 seconds
+Yeah, yeah, I will do that, yes.
+
+Carlo James Caguiat Blacano
+30 minutes 54 seconds30:54
+Carlo James Caguiat Blacano 30 minutes 54 seconds
+Yes.
+KN
+Kumar, Nikhil
+30 minutes 55 seconds30:55
+Kumar, Nikhil 30 minutes 55 seconds
+Yeah, sure.
+
+Ron Allan Lustre
+30 minutes 57 seconds30:57
+Ron Allan Lustre 30 minutes 57 seconds
+Um.
+Ron Allan Lustre 31 minutes
+Anything else to discuss uh from your end James or we good with this uh process?
+
+Carlo James Caguiat Blacano
+31 minutes 6 seconds31:06
+Carlo James Caguiat Blacano 31 minutes 6 seconds
+Um, none for me. How about you, Faye?
+
+Kathlene Faye Casas Tamayo
+31 minutes 12 seconds31:12
+Kathlene Faye Casas Tamayo 31 minutes 12 seconds
+Then for me, that's all for the process of our work.
+
+Ron Allan Lustre
+31 minutes 19 seconds31:19
+Ron Allan Lustre 31 minutes 19 seconds
+OK, so yeah, Jay, we're done with all the process walkthroughs. So for our next step from the can work on the possible solutions design for our CVA because that will be the immediate next.
+KN
+Kumar, Nikhil
+31 minutes 25 seconds31:25
+Kumar, Nikhil 31 minutes 25 seconds
+OK.
+
+Ron Allan Lustre
+31 minutes 39 seconds31:39
+Ron Allan Lustre 31 minutes 39 seconds
+Step we need to work on with Pawan so that we have something to present.
+SA
+Sharma, Ajay
+31 minutes 49 seconds31:49
+Sharma, Ajay 31 minutes 49 seconds
+OK. OK. Yeah. One more thing, Ron. Just please share these links with Nikhil as well. OK. The. Yeah, yeah.
+
+Ron Allan Lustre
+31 minutes 50 seconds31:50
+Ron Allan Lustre 31 minutes 50 seconds
+OK.
+Ron Allan Lustre 31 minutes 58 seconds
+Yeah, yeah, I I'll do once, uh, because uh, it takes time to.
+SA
+Sharma, Ajay
+32 minutes 4 seconds32:04
+Sharma, Ajay 32 minutes 4 seconds
+Yeah, yeah, whenever you're ready. Yeah, yeah, whenever you're ready, you just share.
+
+Ron Allan Lustre
+32 minutes 5 seconds32:05
+Ron Allan Lustre 32 minutes 5 seconds
+Just stay safe. Yeah. Mm-hmm.
+Ron Allan Lustre 32 minutes 9 seconds
+OK, yeah.
+KN
+Kumar, Nikhil
+32 minutes 9 seconds32:09
+Kumar, Nikhil 32 minutes 9 seconds
+Yeah. Yeah. Thank you.
+
+Ron Allan Lustre
+32 minutes 12 seconds32:12
+Ron Allan Lustre 32 minutes 12 seconds
+Thank you, James. We'll reach out if we need further information. Thank you so much.
+SA
+Sharma, Ajay
+32 minutes 13 seconds32:13
+Sharma, Ajay 32 minutes 13 seconds
+Yeah. Thank you.
+
+Carlo James Caguiat Blacano
+32 minutes 15 seconds32:15
+Carlo James Caguiat Blacano 32 minutes 15 seconds
+Yeah. Thank you.
+Carlo James Caguiat Blacano 32 minutes 18 seconds
+Yeah, have a good day to you, heart to you all. Bye.
+
+Ron Allan Lustre
+32 minutes 22 seconds32:22
+Ron Allan Lustre 32 minutes 22 seconds
+Deal.
+SA
+Sharma, Ajay
+32 minutes 24 seconds32:24
+Sharma, Ajay 32 minutes 24 seconds
+Um.
+KN
+Kumar, Nikhil
+32 minutes 26 seconds32:26
+Kumar, Nikhil 32 minutes 26 seconds
+Thank you
