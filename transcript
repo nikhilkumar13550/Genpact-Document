@@ -1,3 +1,5 @@
+
+
 Client Census File (Excel)
           │
           ▼
@@ -435,3 +437,38 @@ Shiela Marie Aristoteles Flores 25 minutes 15 seconds
 Taking a lot to to clean before assigning to the team. Then we're just gonna run it again before the renewal month, which takes place every first week of the month. So yeah, we're used.
 Shiela Marie Aristoteles Flores 25 minutes 34 seconds
 We do this 2 * a month.
+
+
+AIM System (Amendment Logs)
+          │
+          ▼
+AIM API / RPA Extraction
+          │
+          ▼
+Azure Blob Storage (Raw AIM Logs)
+          │
+          ▼
+Azure Data Factory (Trigger Pipeline)
+          │
+          ▼
+Azure Functions (Python Cleaning Engine)
+    - Remove plan sponsor
+    - Remove corporate segment
+    - Remove duplicate logs
+    - Apply 6-month renewal logic
+    - Select required fields
+          │
+          ▼
+Azure SQL Database
+(Log History & Tracking)
+          │
+          ▼
+Clean Assignment File Generated
+(Renewal Date + Segment + Log Number)
+          │
+          ▼
+Azure Blob Storage (Processed Zone)
+          │
+          ▼
+Power BI Dashboard
+(Workload Monitoring & Renewal Readiness)
