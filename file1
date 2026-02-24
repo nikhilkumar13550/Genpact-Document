@@ -311,3 +311,84 @@ Carlo James Caguiat Blacano 29 minutes 43 seconds
 And it was continuous, yeah, for like after doing the MRT, sometimes we are already receiving the the drafts for the next month and that's going to be.
 Carlo James Caguiat Blacano 29 minutes 59 seconds
 That's the time that we're going to do the data manipulation again.
+
+
+
+
+
+
+
+                    Azure Cloud Environment
+──────────────────────────────────────────────────────────
+
+                 Azure Logic Apps / ADF Trigger
+                              │
+                              ▼
+ ┌──────────────────────────────────────────────────────┐
+ │                     INPUT LAYER                     │
+ └──────────────────────────────────────────────────────┘
+
+ AIM System (Amendment Logs)
+        │
+        ▼
+ API / RPA Extraction
+        │
+        ▼
+ Azure Blob Storage (Raw Zone)
+        │
+        ▼
+ Azure SQL (Raw Log Archive)
+
+──────────────────────────────────────────────────────────
+
+ ┌──────────────────────────────────────────────────────┐
+ │                   PROCESSING LAYER                  │
+ └──────────────────────────────────────────────────────┘
+
+ Azure Data Factory (Pipeline Trigger)
+        │
+        ▼
+ Azure Functions (Python Cleaning Engine)
+
+    - Remove Plan Sponsor records
+    - Remove Corporate segment
+    - Remove duplicate Log Numbers
+    - Apply 6-Month Renewal Logic
+    - Filter Renewal Window
+    - Select required columns:
+         • Log Number
+         • Segment
+         • Renewal Date
+    - Generate Structured Clean Dataset
+
+        │
+        ▼
+ Azure SQL Database (Processed Layer)
+
+──────────────────────────────────────────────────────────
+
+ ┌──────────────────────────────────────────────────────┐
+ │                OUTPUT & ASSIGNMENT LAYER            │
+ └──────────────────────────────────────────────────────┘
+
+ Clean Assignment File Generated
+        │
+        ├──► Azure Blob (Processed Zone - Excel/CSV)
+        │
+        ├──► Power BI Dashboard
+        │       - Renewal Readiness
+        │       - Log Volume by Month
+        │       - Pending vs Completed
+        │
+        └──► Workload Tracker Auto Update
+                (Assignment to Team)
+
+──────────────────────────────────────────────────────────
+
+                 Security & Governance Layer
+
+ - Azure AD (RBAC Access Control)
+ - Key Vault (Secrets & API Keys)
+ - Data Encryption at Rest
+ - Activity Logging & Monitoring
+ - Audit Trail of Logs
