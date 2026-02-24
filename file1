@@ -394,51 +394,13 @@ That's the time that we're going to do the data manipulation again.
  - Audit Trail of Logs
 
 
-Create a detailed solution diagram suitable for a PowerPoint presentation, illustrating a modern technology infrastructure. Include the following elements:
+Prompt:
 
-Central Cloud Platform: Depict Microsoft Azure as the central cloud service, represented by its recognizable logo and color scheme.
-
-Network Architecture:
-
-Illustrate a series of interconnected servers and databases, showing a mix of on-premises and cloud-based systems.
-Include a secure VPN connection between on-premises data centers and Azure cloud services.
+Design a solution diagram for automation based on a provided business process transcript. Analyze the transcript thoroughly to identify key components and workflows. Create a visual representation that clearly illustrates the automation process, highlighting the sequence of operations, decision points, and integrations. Ensure the diagram is easy to understand and aligns with the business objectives.
 
 
-Data Flow:
+Example:
 
-Use arrows to demonstrate data flow between different components, including data ingestion, processing, and storage.
-Highlight data pipelines using Azure Data Factory and Azure Synapse Analytics.
+Create a flowchart diagram that outlines the steps in automating a customer service process. Include elements such as customer inquiry reception, automated response generation, escalation procedures, and feedback collection. Use arrows to indicate the flow of information and decision nodes to represent conditional logic.
 
-
-Application Layer:
-
-Show applications hosted on Azure App Services and Azure Functions.
-Include microservices architecture with Azure Kubernetes Service (AKS).
-
-
-Security Features:
-
-Illustrate security components like Azure Security Center and Azure Active Directory.
-Depict firewalls and encryption methods to show data protection.
-
-
-User Interaction:
-
-Represent end-users accessing applications via desktop and mobile devices.
-Show user authentication through Azure Active Directory.
-
-
-Monitoring and Management:
-
-Include Azure Monitor and Azure Log Analytics for real-time monitoring and diagnostics.
-Depict a centralized dashboard for system administrators.
-
-
-Backup and Recovery:
-
-Show Azure Backup and Azure Site Recovery for data protection and disaster recovery.
-
-
-
-Ensure the diagram is clear, with labeled components and a professional layout suitable for business presentations. Use a color palette that aligns with Azure's branding for consistency.
 
