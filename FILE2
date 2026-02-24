@@ -1,0 +1,86 @@
+┌──────────────────────────────┐
+│        AIM SYSTEM            │
+│  (Amendment Logs Portal)     │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│  Report Generation Trigger   │
+│  - Log Status: Completed     │
+│  - OA Status: In Progress    │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│  Extract AIM Report          │
+│  (API / RPA / Scheduled Job) │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│  Azure Blob Storage          │
+│  (Raw AIM Excel File)        │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────────────┐
+│        Azure Data Factory           │
+│        (Pipeline Trigger)           │
+└──────────────┬───────────────────────┘
+               │
+               ▼
+┌──────────────────────────────────────┐
+│   Azure Function (Python Engine)    │
+│   ----- Cleaning Logic -----        │
+│  1. Remove Plan Sponsor             │
+│  2. Remove Corporate Segment         │
+│  3. Remove Duplicate Log Numbers     │
+│  4. Apply 6-Month Renewal Logic      │
+│  5. Filter Renewal Window            │
+│  6. Select Required Fields           │
+│     - Log Number                     │
+│     - Renewal Date                   │
+│     - Segment                        │
+└──────────────┬───────────────────────┘
+               │
+               ▼
+        ┌─────────────────────┐
+        │ Renewal Month Input │
+        │ (Example: July)     │
+        └─────────┬───────────┘
+                  │
+                  ▼
+        ┌──────────────────────────────┐
+        │ Select 6 Months Backward     │
+        │ (Feb → July)                 │
+        └─────────┬────────────────────┘
+                  │
+                  ▼
+┌──────────────────────────────────────┐
+│ Clean Assignment Dataset Generated  │
+└──────────────┬───────────────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│ Azure SQL (Processed Layer)  │
+│ Log Tracking & History       │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│ Workload Assignment File     │
+│ (Auto Generated Excel/CSV)   │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│ Team Assignment              │
+│ - Assign Date                │
+│ - Assign Owner               │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│ Renewal Readiness Confirmed  │
+│ (All Logs Validated)         │
+└──────────────────────────────┘
