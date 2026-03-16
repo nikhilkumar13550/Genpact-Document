@@ -1,261 +1,57 @@
-:root {
-  --sidebar-bg: #1c2b36;
-  --sidebar-hover: #2a3f4e;
-  --manulife-green: #007A33;
-  --bg-light: #F4F7F6;
-  --text-main: #333333;
-  --text-muted: #666666;
-  --border-color: #E2E8F0;
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+import time
+
+# Initialize the FastAPI app
+app = FastAPI()
+
+# VERY IMPORTANT: This allows your React frontend (localhost:5173/5174) 
+# to talk to your Python backend (localhost:8000) without security blocks.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins for development
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (POST, GET, etc.)
+    allow_headers=["*"],
+)
+
+# Define what the incoming data from React looks like
+class ChatRequest(BaseModel):
+    query: str
+    userId: str = "default_user"
+
+# A small "mock" Knowledge Base database for the prototype
+MOCK_KNOWLEDGE_BASE = {
+    "password": "To reset a user's password, navigate to Tech Central > Access Management. Verify their employee ID before sending the reset link.",
+    "pto": "According to the Manulife HR policy, Paid Time Off (PTO) requests must be submitted through Workday at least 14 days in advance.",
+    "escalation": "For Tier 2 technical escalations, please create a Jira ticket and assign it to the 'Ops-Infra' queue."
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+# The actual endpoint that React talks to
+@app.post("/api/chat")
+def chat_endpoint(request: ChatRequest):
+    user_question = request.query.lower()
+    
+    # 1. Simulate the time it takes an AI to "think" and search a database
+    time.sleep(1.5) 
+    
+    # 2. Search our mock database for keywords
+    answer = "I'm sorry, I couldn't find an SOP for that specific request in the Manulife Knowledge Base. Could you rephrase?"
+    
+    for keyword, sop_text in MOCK_KNOWLEDGE_BASE.items():
+        if keyword in user_question:
+            answer = f"I found a relevant policy! {sop_text}"
+            break
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--bg-light);
-  color: var(--text-main);
-}
+    # 3. Send the answer back to the React frontend
+    return {"answer": answer}
 
-.app-layout {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
-
-/* Sidebar Styles */
-.sidebar {
-  width: 90px;
-  background-color: var(--sidebar-bg);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 15px;
-  color: white;
-  z-index: 10;
-}
-
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 16px 5px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  text-align: center;
-  gap: 6px;
-}
-
-.nav-item:hover {
-  background-color: var(--sidebar-hover);
-}
-
-.nav-item.active {
-  background-color: var(--manulife-green);
-}
-
-.nav-label {
-  font-size: 0.65rem;
-  font-weight: 500;
-}
-
-/* Main Content Area */
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Top Header Styles */
-.top-header {
-  height: 70px;
-  background-color: #FFFFFF;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 30px;
-}
-
-.brand-area {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.brand-text {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--manulife-green);
-  letter-spacing: -0.5px;
-}
-
-.brand-subtext {
-  font-size: 1.1rem;
-  color: #1a4f8b; /* John Hancock blue vibe */
-  font-style: italic;
-  font-family: Georgia, serif;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  color: var(--text-muted);
-}
-
-.header-icon {
-  cursor: pointer;
-}
-
-/* Chat Interface Styles */
-.chat-workspace {
-  flex: 1;
-  padding: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  overflow-y: auto;
-}
-
-.chat-container {
-  width: 100%;
-  max-width: 900px;
-  height: 85vh;
-  background: #FFFFFF;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--border-color);
-}
-
-.chat-header-internal {
-  padding: 20px;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.chat-header-internal h2 {
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.messages-area {
-  flex: 1;
-  padding: 25px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: #FAFAFA;
-}
-
-.message-wrapper {
-  display: flex;
-  gap: 15px;
-  max-width: 85%;
-}
-
-.message-wrapper.bot {
-  align-self: flex-start;
-}
-
-.message-wrapper.user {
-  align-self: flex-end;
-  flex-direction: row-reverse;
-}
-
-.avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.bot-avatar {
-  background-color: var(--manulife-green);
-  color: white;
-}
-
-.user-avatar {
-  background-color: #E2E8F0;
-  color: var(--text-muted);
-}
-
-.message-bubble {
-  padding: 14px 18px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-.bot .message-bubble {
-  background-color: #FFFFFF;
-  border: 1px solid var(--border-color);
-  border-top-left-radius: 0;
-}
-
-.user .message-bubble {
-  background-color: #E6F2EC;
-  border: 1px solid #CDE5D8;
-  border-top-right-radius: 0;
-}
-
-.input-area {
-  padding: 20px;
-  background: #FFFFFF;
-  border-top: 1px solid var(--border-color);
-  display: flex;
-  gap: 12px;
-}
-
-.chat-input {
-  flex: 1;
-  padding: 14px 20px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.chat-input:focus {
-  border-color: var(--manulife-green);
-}
-
-.send-btn {
-  background-color: var(--manulife-green);
-  color: white;
-  border: none;
-  padding: 0 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.2s;
-}
-
-.send-btn:hover {
-  background-color: #006329;
-}
-
-
-
-
-
+# This allows you to run the file directly
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+**********************************************************
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   Home, Building2, BookOpen, Users, Scale, ShieldAlert,
@@ -272,9 +68,9 @@ export default function App() {
     }
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Auto-scroll to latest message
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -283,57 +79,61 @@ export default function App() {
     scrollToBottom();
   }, [messages]);
 
-  const handleSend = () => {
-    if (!inputValue.trim()) return;
+  const handleSend = async () => {
+    if (!inputValue.trim() || isLoading) return;
 
-    // Add User Message
-    const newUserMsg = { id: Date.now(), text: inputValue, sender: "user" };
+    const userText = inputValue;
+    
+    // 1. Show user message
+    const newUserMsg = { id: Date.now(), text: userText, sender: "user" };
     setMessages(prev => [...prev, newUserMsg]);
     setInputValue("");
+    setIsLoading(true);
 
-    // Simulate API Call to your backend RAG / LLM
-    setTimeout(() => {
-      const botResponse = {
-        id: Date.now() + 1,
-        text: "I am accessing the MFCentral policy database... Based on SOP-992, the procedure requires you to verify the user via Workday before resetting permissions. Would you like me to pull up the full document?",
-        sender: "bot"
-      };
-      setMessages(prev => [...prev, botResponse]);
-    }, 1500);
+    try {
+      // 2. Call the Python Backend
+      const response = await fetch('http://localhost:8000/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          query: userText,
+          userId: "nikhil_123"
+        }),
+      });
+
+      if (!response.ok) throw new Error("Network error");
+      const data = await response.json();
+      
+      // 3. Show real bot response
+      setMessages(prev => [...prev, { id: Date.now() + 1, text: data.answer, sender: "bot" }]);
+
+    } catch (error) {
+      setMessages(prev => [...prev, { 
+        id: Date.now() + 1, 
+        text: "⚠️ Backend is not running! Please start the Python server.", 
+        sender: "bot" 
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="app-layout">
-      {/* LEFT SIDEBAR - Mirroring the Image */}
+      {/* LEFT SIDEBAR */}
       <div className="sidebar">
-        <div className="nav-item active">
-          <Home size={24} />
-        </div>
-        <div className="nav-item">
-          <Building2 size={24} />
-          <span className="nav-label">Our Company</span>
-        </div>
-        <div className="nav-item">
-          <BookOpen size={24} />
-          <span className="nav-label">Employee<br/>Resources</span>
-        </div>
-        <div className="nav-item">
-          <Users size={24} />
-          <span className="nav-label">Company<br/>Directory</span>
-        </div>
-        <div className="nav-item">
-          <Scale size={24} />
-          <span className="nav-label">Code of<br/>Conduct</span>
-        </div>
-        <div className="nav-item">
-          <ShieldAlert size={24} />
-          <span className="nav-label">Ethics Hotline</span>
-        </div>
+        <div className="nav-item active"><Home size={24} /></div>
+        <div className="nav-item"><Building2 size={24} /><span className="nav-label">Our Company</span></div>
+        <div className="nav-item"><BookOpen size={24} /><span className="nav-label">Employee<br/>Resources</span></div>
+        <div className="nav-item"><Users size={24} /><span className="nav-label">Company<br/>Directory</span></div>
+        <div className="nav-item"><Scale size={24} /><span className="nav-label">Code of<br/>Conduct</span></div>
+        <div className="nav-item"><ShieldAlert size={24} /><span className="nav-label">Ethics Hotline</span></div>
       </div>
 
       {/* MAIN CONTENT AREA */}
       <div className="main-content">
-        {/* TOP HEADER */}
         <header className="top-header">
           <div className="brand-area">
             <span className="brand-text">III Manulife</span>
@@ -343,13 +143,11 @@ export default function App() {
           <div className="header-actions">
             <Search className="header-icon" size={20} />
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}>
-              <span>EN</span>
-              <Globe size={16} />
+              <span>EN</span><Globe size={16} />
             </div>
           </div>
         </header>
 
-        {/* CHAT WORKSPACE */}
         <div className="chat-workspace">
           <div className="chat-container">
             <div className="chat-header-internal">
@@ -363,9 +161,7 @@ export default function App() {
                   <div className={`avatar ${msg.sender === 'bot' ? 'bot-avatar' : 'user-avatar'}`}>
                     {msg.sender === 'bot' ? <Bot size={20} /> : <User size={20} />}
                   </div>
-                  <div className="message-bubble">
-                    {msg.text}
-                  </div>
+                  <div className="message-bubble">{msg.text}</div>
                 </div>
               ))}
               <div ref={messagesEndRef} />
@@ -375,14 +171,20 @@ export default function App() {
               <input 
                 type="text" 
                 className="chat-input" 
-                placeholder="Ask about an SOP, Workday process, or Tech Central query..." 
+                placeholder="Ask about an SOP..." 
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                disabled={isLoading}
               />
-              <button className="send-btn" onClick={handleSend}>
+              <button 
+                className="send-btn" 
+                onClick={handleSend} 
+                disabled={isLoading}
+                style={{ opacity: isLoading ? 0.7 : 1 }}
+              >
                 <Send size={18} />
-                Send
+                {isLoading ? 'Thinking...' : 'Send'}
               </button>
             </div>
           </div>
