@@ -1,17 +1,15 @@
-/* --- GLOBAL RESETS --- */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 :root {
   --manulife-green: #007A33;
   --manulife-green-hover: #00632a;
-  --manulife-dark-blue: #1c2536; /* Dark header color */
-  --bg-color: #f3f4f6; /* Light grey background outside chat */
-  --chat-bg: #ffffff;
+  --manulife-dark-blue: #1c2536; 
+  --bg-color: #f3f4f6;
 }
 
 .app-layout {
@@ -21,7 +19,6 @@
   background-color: var(--bg-color);
 }
 
-/* --- TOP HEADER --- */
 .top-header {
   display: flex;
   justify-content: space-between;
@@ -30,7 +27,6 @@
   height: 64px;
   background-color: var(--manulife-dark-blue);
   color: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .brand-area {
@@ -39,35 +35,25 @@
   gap: 12px;
 }
 
-.logo-bars {
-  display: flex;
-  gap: 3px;
-  margin-right: 8px;
-}
-
-.logo-bars .bar {
-  width: 6px;
-  height: 24px;
-  background-color: #00C753; /* Bright green Manulife logo color */
-  border-radius: 1px;
-  transform: skewX(-15deg);
+.brand-logo {
+  height: 32px;
+  width: auto;
 }
 
 .brand-text {
   font-size: 1.4rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
 }
 
 .brand-divider {
   color: #6b7280;
-  font-weight: 300;
+  margin: 0 4px;
 }
 
 .brand-subtext {
   font-size: 1.1rem;
   font-style: italic;
-  font-family: "Georgia", serif; /* John Hancock logo font style */
+  font-family: "Georgia", serif;
 }
 
 .header-actions {
@@ -76,74 +62,52 @@
   gap: 20px;
 }
 
-.header-icon {
-  cursor: pointer;
-  color: #9ca3af;
-}
-
-.header-icon:hover {
-  color: white;
-}
-
 .language-selector {
   display: flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
 }
 
-/* --- MAIN CHAT WORKSPACE --- */
 .chat-workspace {
   flex: 1;
   display: flex;
   justify-content: center;
-  padding: 32px;
-  overflow: hidden; /* Keeps scrolling inside the container */
+  padding: 30px;
+  overflow: hidden;
 }
 
 .chat-container {
   width: 100%;
-  max-width: 950px;
-  background-color: var(--chat-bg);
+  max-width: 900px;
+  background: white;
   border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .chat-header-internal {
-  padding: 20px 24px;
-  border-bottom: 1px solid #f3f4f6;
+  padding: 16px 24px;
+  border-bottom: 1px solid #eee;
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.chat-header-internal h2 {
-  font-size: 1.2rem;
-  color: #111827;
-  font-weight: 600;
-}
-
-/* --- MESSAGES AREA --- */
 .messages-area {
   flex: 1;
   padding: 24px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  background-color: #fafafa;
+  gap: 20px;
+  background-color: #f9fafb;
 }
 
 .message-wrapper {
   display: flex;
-  gap: 16px;
-  align-items: flex-start;
+  gap: 12px;
 }
 
 .message-wrapper.user {
@@ -151,99 +115,60 @@
 }
 
 .avatar {
-  width: 36px;
-  height: 36px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
 
-.bot-avatar {
-  background-color: var(--manulife-green);
-}
-
-.user-avatar {
-  background-color: #e5e7eb;
-}
+.bot-avatar { background-color: var(--manulife-green); }
+.user-avatar { background-color: #e5e7eb; }
 
 .message-bubble {
-  padding: 16px 20px;
+  padding: 12px 18px;
   border-radius: 8px;
+  max-width: 70%;
   font-size: 0.95rem;
-  line-height: 1.5;
-  max-width: 75%;
 }
 
 .bot .message-bubble {
-  background-color: white;
+  background: white;
   border: 1px solid #e5e7eb;
-  color: #1f2937;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
 }
 
 .user .message-bubble {
-  background-color: #e8f5e9; /* Light green tint for user */
+  background: #e8f5e9;
   border: 1px solid #c8e6c9;
-  color: #111827;
 }
 
-/* --- INPUT AREA --- */
 .input-area {
-  padding: 20px 24px;
-  background-color: white;
-  border-top: 1px solid #e5e7eb;
+  padding: 20px;
+  border-top: 1px solid #eee;
   display: flex;
-  gap: 12px;
+  gap: 10px;
 }
 
 .chat-input {
   flex: 1;
-  padding: 14px 16px;
-  border: 1px solid #d1d5db;
+  padding: 12px;
+  border: 1px solid #ddd;
   border-radius: 6px;
-  font-size: 0.95rem;
   outline: none;
-  transition: border-color 0.2s;
-}
-
-.chat-input:focus {
-  border-color: var(--manulife-green);
-  box-shadow: 0 0 0 2px rgba(0, 122, 51, 0.1);
 }
 
 .send-btn {
-  background-color: var(--manulife-green);
+  background: var(--manulife-green);
   color: white;
   border: none;
+  padding: 0 20px;
   border-radius: 6px;
-  padding: 0 24px;
-  font-weight: 500;
-  font-size: 0.95rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: background-color 0.2s;
 }
-
-.send-btn:hover:not(:disabled) {
-  background-color: var(--manulife-green-hover);
-}
-
-.send-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-
-
-
-
-
-
-
 
 
 
@@ -265,7 +190,7 @@ export default function App() {
   const [messages, setMessages] = useState([
     { 
       id: 1, 
-      text: "Hello. Welcome to the Customer Operation Resource Assistant. Please enter your query or specify the SOP you need assistance with today",
+      text: "Hello, Nikhil. Welcome to the Customer Operation Resource Assistant. Please enter your query or specify the SOP you need assistance with today.", 
       sender: "bot" 
     }
   ]);
@@ -285,32 +210,23 @@ export default function App() {
     if (!inputValue.trim() || isLoading) return;
 
     const userText = inputValue;
-    
-    // 1. Show user message
     const newUserMsg = { id: Date.now(), text: userText, sender: "user" };
+    
     setMessages(prev => [...prev, newUserMsg]);
     setInputValue("");
     setIsLoading(true);
 
     try {
-      // 2. Call the Python Backend
       const response = await fetch('http://localhost:8000/api/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          query: userText,
-          userId: "nikhil_123"
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: userText, userId: "nikhil_123" }),
       });
 
       if (!response.ok) throw new Error("Network error");
       const data = await response.json();
       
-      // 3. Show real bot response
       setMessages(prev => [...prev, { id: Date.now() + 1, text: data.answer, sender: "bot" }]);
-
     } catch (error) {
       setMessages(prev => [...prev, { 
         id: Date.now() + 1, 
@@ -324,14 +240,9 @@ export default function App() {
 
   return (
     <div className="app-layout">
-      {/* TOP HEADER - Dark Blue */}
       <header className="top-header">
         <div className="brand-area">
-          <div className="logo-bars">
-            <div className="bar"></div>
-            <div className="bar"></div>
-            <div className="bar"></div>
-          </div>
+          <img src="/brand-logo.png" alt="Logo" className="brand-logo" />
           <span className="brand-text">Manulife</span>
           <span className="brand-divider">|</span>
           <span className="brand-subtext">John Hancock</span>
@@ -344,12 +255,11 @@ export default function App() {
         </div>
       </header>
 
-      {/* MAIN CHAT WORKSPACE - Centered */}
       <div className="chat-workspace">
         <div className="chat-container">
           <div className="chat-header-internal">
             <HelpCircle size={24} color="#007A33" />
-            <h2>Customer Operations Resource Assistant</h2>
+            <h2>Customer Operation Resource Assistant</h2>
           </div>
           
           <div className="messages-area">
@@ -368,17 +278,13 @@ export default function App() {
             <input 
               type="text" 
               className="chat-input" 
-              placeholder="Ask your query..." 
+              placeholder="Ask your query?" 
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               disabled={isLoading}
             />
-            <button 
-              className="send-btn" 
-              onClick={handleSend} 
-              disabled={isLoading}
-            >
+            <button className="send-btn" onClick={handleSend} disabled={isLoading}>
               <Send size={18} />
               {isLoading ? 'Thinking...' : 'Send'}
             </button>
