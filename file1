@@ -1,1 +1,15 @@
-token_obj = credential.get_token("https://ai.azure.com/.default")
+Requesting secure token from Azure...
+C:\Users\850084782\AppData\Local\Programs\Python\Python314\Lib\site-packages\msal\oauth2cli\oauth2.py:407: UserWarning: response_mode='form_post' is recommended for better security. See https://www.rfc-editor.org/rfc/rfc9700.html#section-4.3.1
+  warnings.warn(
+Sending message to Azure AI Foundry...
+AZURE ERROR 403: {
+  "error": {
+    "code": "forbidden",
+    "message": "Request not authorized. Missing permission(s): Microsoft.CognitiveServices/accounts/AIServices/applications/invoke/action",
+    "type": "error",
+    "details": [],
+    "additionalInfo": {
+      "request_id": "4d3f50273b5564c93e31cf16756a86ac"
+    }
+  }
+}
