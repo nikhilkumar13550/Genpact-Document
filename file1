@@ -174,14 +174,6 @@
 
 
 
-
-
-
-
-
-
-
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Search, Globe, Send, User, Bot, HelpCircle } from 'lucide-react';
 import './App.css';
