@@ -1,288 +1,73 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
+Document 1: Manulife Employee Leave Policy
+File Name: SOP_HR_Leave_Policy_2026.txt
 
-:root {
-  --manulife-green: #007A33;
-  --manulife-green-hover: #00632a;
-  --manulife-dark-blue: #1c2536; 
-  --bg-color: #f3f4f6;
-}
+TITLE: Manulife Global Employee Leave and Time-Off Policy
+DEPARTMENT: Human Resources & Operations
+EFFECTIVE DATE: January 1, 2026
+APPLIES TO: All full-time Manulife and John Hancock employees.
 
-.app-layout {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: var(--bg-color);
-}
+1. Paid Time Off (PTO) Entitlement
 
-.top-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 32px;
-  height: 64px;
-  background-color: var(--manulife-dark-blue);
-  color: white;
-}
+All full-time employees are entitled to a minimum of 20 days of Paid Time Off (PTO) per calendar year, accrued bi-weekly.
 
-.brand-area {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+Employees with over 5 years of tenure receive 25 days of PTO.
 
-.brand-logo {
-  height: 32px;
-  width: auto;
-}
+Up to 5 unused PTO days can be rolled over to the next calendar year. Any additional unused days will be forfeited unless restricted by local labor laws.
 
-.brand-text {
-  font-size: 1.4rem;
-  font-weight: 600;
-}
+2. Sick and Mental Health Leave
 
-.brand-divider {
-  color: #6b7280;
-  margin: 0 4px;
-}
+Employees receive 10 days of paid sick leave annually. This can be used for physical illness, mental health days, or caring for an immediate family member.
 
-.brand-subtext {
-  font-size: 1.1rem;
-  font-style: italic;
-  font-family: "Georgia", serif;
-}
+Absences exceeding 3 consecutive business days require a standard doctor's note to be uploaded to the Manulife Workday HR Portal.
 
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
+3. Parental Leave
 
-.language-selector {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-}
+Primary caregivers are eligible for up to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child.
 
-.chat-workspace {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  padding: 30px;
-  overflow: hidden;
-}
+Secondary caregivers are eligible for up to 6 weeks of fully paid parental leave.
 
-.chat-container {
-  width: 100%;
-  max-width: 900px;
-  background: white;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
+4. Request and Approval Process
 
-.chat-header-internal {
-  padding: 16px 24px;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+Standard Requests: PTO requests must be submitted through the Workday HR Portal at least 14 days in advance for approval by the direct manager.
 
-.messages-area {
-  flex: 1;
-  padding: 24px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: #f9fafb;
-}
+Emergency/Sick Leave: Must be logged in Workday on the same day, and the employee must notify their manager via Microsoft Teams or email before their shift begins.
 
-.message-wrapper {
-  display: flex;
-  gap: 12px;
-}
+Document 2: Customer Onboarding Procedure
+File Name: SOP_Ops_Customer_Onboarding.txt
 
-.message-wrapper.user {
-  flex-direction: row-reverse;
-}
+TITLE: Customer Onboarding and Account Provisioning SOP
+DEPARTMENT: System Operations & Client Success
+EFFECTIVE DATE: February 15, 2026
+SYSTEMS USED: ClientLink Hub, SecureDoc Portal, Salesforce
 
-.avatar {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+1. Initial Verification & KYC (Know Your Customer)
 
-.bot-avatar { background-color: var(--manulife-green); }
-.user-avatar { background-color: #e5e7eb; }
+Once a customer signs the initial Manulife policy agreement, the Operations agent must verify the customer's identity.
 
-.message-bubble {
-  padding: 12px 18px;
-  border-radius: 8px;
-  max-width: 70%;
-  font-size: 0.95rem;
-}
+The agent must log into the ClientLink Hub and ensure the customer's Government ID and Proof of Address match the application details.
 
-.bot .message-bubble {
-  background: white;
-  border: 1px solid #e5e7eb;
-}
+If documents are blurry or mismatched, the agent must trigger a "Request for Information" (RFI) via the SecureDoc Portal. Do not process the application until documents are verified.
 
-.user .message-bubble {
-  background: #e8f5e9;
-  border: 1px solid #c8e6c9;
-}
+2. Account Creation & Policy Linking
 
-.input-area {
-  padding: 20px;
-  border-top: 1px solid #eee;
-  display: flex;
-  gap: 10px;
-}
+Navigate to the Salesforce onboarding dashboard.
 
-.chat-input {
-  flex: 1;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  outline: none;
-}
+Create a new "Client Profile" using the verified email address.
 
-.send-btn {
-  background: var(--manulife-green);
-  color: white;
-  border: none;
-  padding: 0 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+Enter the Policy Generation Number (PGN) into the profile to link the customer's specific life insurance or wealth management product to their digital account.
 
+Set the account status to "Active - Pending Welcome Packet."
 
+3. Welcome Packet Dispatch
 
+Once the account is active, the system will automatically generate a Welcome Packet.
 
+The Ops agent must manually review the Welcome Packet for accuracy (Name, Policy Amount, Beneficiary details).
 
-import React, { useState, useRef, useEffect } from 'react';
-import { Search, Globe, Send, User, Bot, HelpCircle } from 'lucide-react';
-import './App.css';
+Click "Approve & Send." The customer will receive an encrypted email containing their login credentials and policy documents.
 
-export default function App() {
-  const [messages, setMessages] = useState([
-    { 
-      id: 1, 
-      text: "Hello, Nikhil. Welcome to the Customer Operation Resource Assistant. Please enter your query or specify the SOP you need assistance with today.", 
-      sender: "bot" 
-    }
-  ]);
-  const [inputValue, setInputValue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef(null);
+4. Tier 2 Escalations for Onboarding
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+If the ClientLink Hub throws an "AML Flag" (Anti-Money Laundering), the Ops agent must immediately halt the onboarding process.
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const handleSend = async () => {
-    if (!inputValue.trim() || isLoading) return;
-
-    const userText = inputValue;
-    const newUserMsg = { id: Date.now(), text: userText, sender: "user" };
-    
-    setMessages(prev => [...prev, newUserMsg]);
-    setInputValue("");
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('http://localhost:8000/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: userText, userId: "nikhil_123" }),
-      });
-
-      if (!response.ok) throw new Error("Network error");
-      const data = await response.json();
-      
-      setMessages(prev => [...prev, { id: Date.now() + 1, text: data.answer, sender: "bot" }]);
-    } catch (error) {
-      setMessages(prev => [...prev, { 
-        id: Date.now() + 1, 
-        text: "⚠️ Backend is not running! Please start the Python server.", 
-        sender: "bot" 
-      }]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
-    <div className="app-layout">
-      <header className="top-header">
-        <div className="brand-area">
-          <img src="/brand-logo.png" alt="Logo" className="brand-logo" />
-          <span className="brand-text">Manulife</span>
-          <span className="brand-divider">|</span>
-          <span className="brand-subtext">John Hancock</span>
-        </div>
-        <div className="header-actions">
-          <Search className="header-icon" size={20} />
-          <div className="language-selector">
-            <span>EN</span><Globe size={16} />
-          </div>
-        </div>
-      </header>
-
-      <div className="chat-workspace">
-        <div className="chat-container">
-          <div className="chat-header-internal">
-            <HelpCircle size={24} color="#007A33" />
-            <h2>Customer Operation Resource Assistant</h2>
-          </div>
-          
-          <div className="messages-area">
-            {messages.map((msg) => (
-              <div key={msg.id} className={`message-wrapper ${msg.sender}`}>
-                <div className={`avatar ${msg.sender === 'bot' ? 'bot-avatar' : 'user-avatar'}`}>
-                  {msg.sender === 'bot' ? <Bot size={20} color="white" /> : <User size={20} color="#4B5563" />}
-                </div>
-                <div className="message-bubble">{msg.text}</div>
-              </div>
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
-
-          <div className="input-area">
-            <input 
-              type="text" 
-              className="chat-input" 
-              placeholder="Ask your query?" 
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-              disabled={isLoading}
-            />
-            <button className="send-btn" onClick={handleSend} disabled={isLoading}>
-              <Send size={18} />
-              {isLoading ? 'Thinking...' : 'Send'}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+The agent must change the Salesforce status to "Escalated - Compliance Review" and assign the ticket to the Regional Compliance Officer. Do not notify the customer of the AML flag directly; inform them only that "the application is under standard secondary review."
