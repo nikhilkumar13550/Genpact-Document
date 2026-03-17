@@ -1,69 +1,271 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-import time
-
-# Initialize the FastAPI app
-app = FastAPI()
-
-# VERY IMPORTANT: This allows your React frontend (localhost:5173/5174) 
-# to talk to your Python backend (localhost:8000) without security blocks.
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins for development
-    allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods (POST, GET, etc.)
-    allow_headers=["*"],
-)
-
-# Define what the incoming data from React looks like
-class ChatRequest(BaseModel):
-    query: str
-    userId: str = "default_user"
-
-# A small "mock" Knowledge Base database for the prototype
-MOCK_KNOWLEDGE_BASE = {
-    "password": "To reset a user's password, navigate to Tech Central > Access Management. Verify their employee ID before sending the reset link.",
-    "pto": "According to the Manulife HR policy, Paid Time Off (PTO) requests must be submitted through Workday at least 14 days in advance.",
-    "escalation": "For Tier 2 technical escalations, please create a Jira ticket and assign it to the 'Ops-Infra' queue."
+/* --- GLOBAL RESETS --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-# The actual endpoint that React talks to
-@app.post("/api/chat")
-def chat_endpoint(request: ChatRequest):
-    user_question = request.query.lower()
-    
-    # 1. Simulate the time it takes an AI to "think" and search a database
-    time.sleep(1.5) 
-    
-    # 2. Search our mock database for keywords
-    answer = "I'm sorry, I couldn't find an SOP for that specific request in the Manulife Knowledge Base. Could you rephrase?"
-    
-    for keyword, sop_text in MOCK_KNOWLEDGE_BASE.items():
-        if keyword in user_question:
-            answer = f"I found a relevant policy! {sop_text}"
-            break
+:root {
+  --manulife-green: #007A33;
+  --manulife-green-hover: #00632a;
+  --manulife-dark-blue: #1c2536; /* Dark header color */
+  --bg-color: #f3f4f6; /* Light grey background outside chat */
+  --chat-bg: #ffffff;
+}
 
-    # 3. Send the answer back to the React frontend
-    return {"answer": answer}
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--bg-color);
+}
 
-# This allows you to run the file directly
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
-**********************************************************
+/* --- TOP HEADER --- */
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+  height: 64px;
+  background-color: var(--manulife-dark-blue);
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.brand-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-bars {
+  display: flex;
+  gap: 3px;
+  margin-right: 8px;
+}
+
+.logo-bars .bar {
+  width: 6px;
+  height: 24px;
+  background-color: #00C753; /* Bright green Manulife logo color */
+  border-radius: 1px;
+  transform: skewX(-15deg);
+}
+
+.brand-text {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.brand-divider {
+  color: #6b7280;
+  font-weight: 300;
+}
+
+.brand-subtext {
+  font-size: 1.1rem;
+  font-style: italic;
+  font-family: "Georgia", serif; /* John Hancock logo font style */
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-icon {
+  cursor: pointer;
+  color: #9ca3af;
+}
+
+.header-icon:hover {
+  color: white;
+}
+
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* --- MAIN CHAT WORKSPACE --- */
+.chat-workspace {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+  overflow: hidden; /* Keeps scrolling inside the container */
+}
+
+.chat-container {
+  width: 100%;
+  max-width: 950px;
+  background-color: var(--chat-bg);
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chat-header-internal {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chat-header-internal h2 {
+  font-size: 1.2rem;
+  color: #111827;
+  font-weight: 600;
+}
+
+/* --- MESSAGES AREA --- */
+.messages-area {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: #fafafa;
+}
+
+.message-wrapper {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.message-wrapper.user {
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bot-avatar {
+  background-color: var(--manulife-green);
+}
+
+.user-avatar {
+  background-color: #e5e7eb;
+}
+
+.message-bubble {
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 75%;
+}
+
+.bot .message-bubble {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  color: #1f2937;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+.user .message-bubble {
+  background-color: #e8f5e9; /* Light green tint for user */
+  border: 1px solid #c8e6c9;
+  color: #111827;
+}
+
+/* --- INPUT AREA --- */
+.input-area {
+  padding: 20px 24px;
+  background-color: white;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  gap: 12px;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.chat-input:focus {
+  border-color: var(--manulife-green);
+  box-shadow: 0 0 0 2px rgba(0, 122, 51, 0.1);
+}
+
+.send-btn {
+  background-color: var(--manulife-green);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0 24px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+
+.send-btn:hover:not(:disabled) {
+  background-color: var(--manulife-green-hover);
+}
+
+.send-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Home, Building2, BookOpen, Users, Scale, ShieldAlert,
-  Search, Globe, Send, User, Bot, HelpCircle
-} from 'lucide-react';
+import { Search, Globe, Send, User, Bot, HelpCircle } from 'lucide-react';
 import './App.css';
 
 export default function App() {
   const [messages, setMessages] = useState([
     { 
       id: 1, 
-      text: "Hi, Nikhil! Welcome to the Ops Knowledge Base. How can I help you resolve a query or locate an SOP today?", 
+      text: "Hello. Welcome to the Customer Operation Resource Assistant. Please enter your query or specify the SOP you need assistance with today",
       sender: "bot" 
     }
   ]);
@@ -122,71 +324,64 @@ export default function App() {
 
   return (
     <div className="app-layout">
-      {/* LEFT SIDEBAR */}
-      <div className="sidebar">
-        <div className="nav-item active"><Home size={24} /></div>
-        <div className="nav-item"><Building2 size={24} /><span className="nav-label">Our Company</span></div>
-        <div className="nav-item"><BookOpen size={24} /><span className="nav-label">Employee<br/>Resources</span></div>
-        <div className="nav-item"><Users size={24} /><span className="nav-label">Company<br/>Directory</span></div>
-        <div className="nav-item"><Scale size={24} /><span className="nav-label">Code of<br/>Conduct</span></div>
-        <div className="nav-item"><ShieldAlert size={24} /><span className="nav-label">Ethics Hotline</span></div>
-      </div>
-
-      {/* MAIN CONTENT AREA */}
-      <div className="main-content">
-        <header className="top-header">
-          <div className="brand-area">
-            <span className="brand-text">III Manulife</span>
-            <span style={{color: '#ccc'}}>|</span>
-            <span className="brand-subtext">John Hancock</span>
+      {/* TOP HEADER - Dark Blue */}
+      <header className="top-header">
+        <div className="brand-area">
+          <div className="logo-bars">
+            <div className="bar"></div>
+            <div className="bar"></div>
+            <div className="bar"></div>
           </div>
-          <div className="header-actions">
-            <Search className="header-icon" size={20} />
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}>
-              <span>EN</span><Globe size={16} />
-            </div>
+          <span className="brand-text">Manulife</span>
+          <span className="brand-divider">|</span>
+          <span className="brand-subtext">John Hancock</span>
+        </div>
+        <div className="header-actions">
+          <Search className="header-icon" size={20} />
+          <div className="language-selector">
+            <span>EN</span><Globe size={16} />
           </div>
-        </header>
+        </div>
+      </header>
 
-        <div className="chat-workspace">
-          <div className="chat-container">
-            <div className="chat-header-internal">
-              <HelpCircle size={24} color="#007A33" />
-              <h2>Ops Knowledge Assistant</h2>
-            </div>
-            
-            <div className="messages-area">
-              {messages.map((msg) => (
-                <div key={msg.id} className={`message-wrapper ${msg.sender}`}>
-                  <div className={`avatar ${msg.sender === 'bot' ? 'bot-avatar' : 'user-avatar'}`}>
-                    {msg.sender === 'bot' ? <Bot size={20} /> : <User size={20} />}
-                  </div>
-                  <div className="message-bubble">{msg.text}</div>
+      {/* MAIN CHAT WORKSPACE - Centered */}
+      <div className="chat-workspace">
+        <div className="chat-container">
+          <div className="chat-header-internal">
+            <HelpCircle size={24} color="#007A33" />
+            <h2>Customer Operations Resource Assistant</h2>
+          </div>
+          
+          <div className="messages-area">
+            {messages.map((msg) => (
+              <div key={msg.id} className={`message-wrapper ${msg.sender}`}>
+                <div className={`avatar ${msg.sender === 'bot' ? 'bot-avatar' : 'user-avatar'}`}>
+                  {msg.sender === 'bot' ? <Bot size={20} color="white" /> : <User size={20} color="#4B5563" />}
                 </div>
-              ))}
-              <div ref={messagesEndRef} />
-            </div>
+                <div className="message-bubble">{msg.text}</div>
+              </div>
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
 
-            <div className="input-area">
-              <input 
-                type="text" 
-                className="chat-input" 
-                placeholder="Ask about an SOP..." 
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                disabled={isLoading}
-              />
-              <button 
-                className="send-btn" 
-                onClick={handleSend} 
-                disabled={isLoading}
-                style={{ opacity: isLoading ? 0.7 : 1 }}
-              >
-                <Send size={18} />
-                {isLoading ? 'Thinking...' : 'Send'}
-              </button>
-            </div>
+          <div className="input-area">
+            <input 
+              type="text" 
+              className="chat-input" 
+              placeholder="Ask your query..." 
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+              disabled={isLoading}
+            />
+            <button 
+              className="send-btn" 
+              onClick={handleSend} 
+              disabled={isLoading}
+            >
+              <Send size={18} />
+              {isLoading ? 'Thinking...' : 'Send'}
+            </button>
           </div>
         </div>
       </div>
