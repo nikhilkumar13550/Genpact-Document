@@ -1,14 +1,11 @@
-index_kind_glove_r7bt6ylbyd
- 
-You are a helpful assistant who answers query based on the knowlegde attached to you.
+Go to the Azure AI Foundry portal.
 
-Please maintain a formal tone and don't assume answers if you don't find it in you knowledge base.
- 
-Protocol endpoint: https://Claims-Intake.services.ai.azure.com/api/projects/firstProject/applications/KbChatBot/protocols/activityprotocol?api-version=2025-11-15-preview
- 
-Response endpoint: https://Claims-Intake.services.ai.azure.com/api/projects/firstProject/applications/KbChatBot/protocols/activityprotocol?api-version=2025-11-15-preview
- 
-API key: 5isBJe3D4tp5LnAxETw16SaeUTzB4mBNWfTh1KMSgjWjzmrWHsAdJQQJ99BKACYeBjFXJ3w3AAAAACOGBiYx
- 
-Foundry Project: https://claims-intake.services.ai.azure.com/api/projects/firstProject
- 
+Select your Project.
+
+On the left sidebar, click Management > Users (or Admin depending on your version).
+
+Click Add user (this works for Service Principals too).
+
+Enter the name/ID of your Service Principal.
+
+Assign the role: Azure AI User.
