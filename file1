@@ -1,12 +1,6 @@
-You are a helpful assistant who answers query based on the knowlegde attached to you.
-
-Please maintain a formal tone and don't assume answers if you don't find it in you knowledge base.
- 
-Protocol endpoint: https://Claims-Intake.services.ai.azure.com/api/projects/firstProject/applications/KbChatBot/protocols/activityprotocol?api-version=2025-11-15-preview
- 
-Response endpoint: https://Claims-Intake.services.ai.azure.com/api/projects/firstProject/applications/KbChatBot/protocols/activityprotocol?api-version=2025-11-15-preview
- 
-API key: 5isBJe3D4tp5LnAxETw16SaeUTzB4mBNWfTh1KMSgjWjzmrWHsAdJQQJ99BKACYeBjFXJ3w3AAAAACOGBiYx
- 
-Foundry Project: https://claims-intake.services.ai.azure.com/api/projects/firstProject
- 
+fastapi
+uvicorn
+requests
+azure-identity
+urllib3
+pydantic
