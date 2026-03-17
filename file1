@@ -1,73 +1,14 @@
-Document 1: Manulife Employee Leave Policy
-File Name: SOP_HR_Leave_Policy_2026.txt
+index_kind_glove_r7bt6ylbyd
+ 
+You are a helpful assistant who answers query based on the knowlegde attached to you.
 
-TITLE: Manulife Global Employee Leave and Time-Off Policy
-DEPARTMENT: Human Resources & Operations
-EFFECTIVE DATE: January 1, 2026
-APPLIES TO: All full-time Manulife and John Hancock employees.
-
-1. Paid Time Off (PTO) Entitlement
-
-All full-time employees are entitled to a minimum of 20 days of Paid Time Off (PTO) per calendar year, accrued bi-weekly.
-
-Employees with over 5 years of tenure receive 25 days of PTO.
-
-Up to 5 unused PTO days can be rolled over to the next calendar year. Any additional unused days will be forfeited unless restricted by local labor laws.
-
-2. Sick and Mental Health Leave
-
-Employees receive 10 days of paid sick leave annually. This can be used for physical illness, mental health days, or caring for an immediate family member.
-
-Absences exceeding 3 consecutive business days require a standard doctor's note to be uploaded to the Manulife Workday HR Portal.
-
-3. Parental Leave
-
-Primary caregivers are eligible for up to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child.
-
-Secondary caregivers are eligible for up to 6 weeks of fully paid parental leave.
-
-4. Request and Approval Process
-
-Standard Requests: PTO requests must be submitted through the Workday HR Portal at least 14 days in advance for approval by the direct manager.
-
-Emergency/Sick Leave: Must be logged in Workday on the same day, and the employee must notify their manager via Microsoft Teams or email before their shift begins.
-
-Document 2: Customer Onboarding Procedure
-File Name: SOP_Ops_Customer_Onboarding.txt
-
-TITLE: Customer Onboarding and Account Provisioning SOP
-DEPARTMENT: System Operations & Client Success
-EFFECTIVE DATE: February 15, 2026
-SYSTEMS USED: ClientLink Hub, SecureDoc Portal, Salesforce
-
-1. Initial Verification & KYC (Know Your Customer)
-
-Once a customer signs the initial Manulife policy agreement, the Operations agent must verify the customer's identity.
-
-The agent must log into the ClientLink Hub and ensure the customer's Government ID and Proof of Address match the application details.
-
-If documents are blurry or mismatched, the agent must trigger a "Request for Information" (RFI) via the SecureDoc Portal. Do not process the application until documents are verified.
-
-2. Account Creation & Policy Linking
-
-Navigate to the Salesforce onboarding dashboard.
-
-Create a new "Client Profile" using the verified email address.
-
-Enter the Policy Generation Number (PGN) into the profile to link the customer's specific life insurance or wealth management product to their digital account.
-
-Set the account status to "Active - Pending Welcome Packet."
-
-3. Welcome Packet Dispatch
-
-Once the account is active, the system will automatically generate a Welcome Packet.
-
-The Ops agent must manually review the Welcome Packet for accuracy (Name, Policy Amount, Beneficiary details).
-
-Click "Approve & Send." The customer will receive an encrypted email containing their login credentials and policy documents.
-
-4. Tier 2 Escalations for Onboarding
-
-If the ClientLink Hub throws an "AML Flag" (Anti-Money Laundering), the Ops agent must immediately halt the onboarding process.
-
-The agent must change the Salesforce status to "Escalated - Compliance Review" and assign the ticket to the Regional Compliance Officer. Do not notify the customer of the AML flag directly; inform them only that "the application is under standard secondary review."
+Please maintain a formal tone and don't assume answers if you don't find it in you knowledge base.
+ 
+Protocol endpoint: https://Claims-Intake.services.ai.azure.com/api/projects/firstProject/applications/KbChatBot/protocols/activityprotocol?api-version=2025-11-15-preview
+ 
+Response endpoint: https://Claims-Intake.services.ai.azure.com/api/projects/firstProject/applications/KbChatBot/protocols/activityprotocol?api-version=2025-11-15-preview
+ 
+API key: 5isBJe3D4tp5LnAxETw16SaeUTzB4mBNWfTh1KMSgjWjzmrWHsAdJQQJ99BKACYeBjFXJ3w3AAAAACOGBiYx
+ 
+Foundry Project: https://claims-intake.services.ai.azure.com/api/projects/firstProject
+ 
