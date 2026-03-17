@@ -1,11 +1,13 @@
-Go to the Azure AI Foundry portal.
+Log in to the Azure Portal and navigate to the Azure AI Services or Azure OpenAI resource that is powering firstProject / KbChatBot.
 
-Select your Project.
+On the left-hand menu, click on Access control (IAM).
 
-On the left sidebar, click Management > Users (or Admin depending on your version).
+Click the + Add button at the top, then select Add role assignment.
 
-Click Add user (this works for Service Principals too).
+Search for and select the Cognitive Services OpenAI User role (or the broader Cognitive Services User role if the bot uses multiple AI services). Click Next.
 
-Enter the name/ID of your Service Principal.
+Under "Assign access to", choose User, group, or service principal.
 
-Assign the role: Azure AI User.
+Click + Select members and search for the specific identity (App Registration, Service Principal, or User) that generated the API key you provided to me.
+
+Click Review + assign to save the changes.
