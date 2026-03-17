@@ -1,86 +1,112 @@
-┌──────────────────────────────┐
-│        AIM SYSTEM            │
-│  (Amendment Logs Portal)     │
-└──────────────┬───────────────┘
-               │
-               ▼
-┌──────────────────────────────┐
-│  Report Generation Trigger   │
-│  - Log Status: Completed     │
-│  - OA Status: In Progress    │
-└──────────────┬───────────────┘
-               │
-               ▼
-┌──────────────────────────────┐
-│  Extract AIM Report          │
-│  (API / RPA / Scheduled Job) │
-└──────────────┬───────────────┘
-               │
-               ▼
-┌──────────────────────────────┐
-│  Azure Blob Storage          │
-│  (Raw AIM Excel File)        │
-└──────────────┬───────────────┘
-               │
-               ▼
-┌──────────────────────────────────────┐
-│        Azure Data Factory           │
-│        (Pipeline Trigger)           │
-└──────────────┬───────────────────────┘
-               │
-               ▼
-┌──────────────────────────────────────┐
-│   Azure Function (Python Engine)    │
-│   ----- Cleaning Logic -----        │
-│  1. Remove Plan Sponsor             │
-│  2. Remove Corporate Segment         │
-│  3. Remove Duplicate Log Numbers     │
-│  4. Apply 6-Month Renewal Logic      │
-│  5. Filter Renewal Window            │
-│  6. Select Required Fields           │
-│     - Log Number                     │
-│     - Renewal Date                   │
-│     - Segment                        │
-└──────────────┬───────────────────────┘
-               │
-               ▼
-        ┌─────────────────────┐
-        │ Renewal Month Input │
-        │ (Example: July)     │
-        └─────────┬───────────┘
-                  │
-                  ▼
-        ┌──────────────────────────────┐
-        │ Select 6 Months Backward     │
-        │ (Feb → July)                 │
-        └─────────┬────────────────────┘
-                  │
-                  ▼
-┌──────────────────────────────────────┐
-│ Clean Assignment Dataset Generated  │
-└──────────────┬───────────────────────┘
-               │
-               ▼
-┌──────────────────────────────┐
-│ Azure SQL (Processed Layer)  │
-│ Log Tracking & History       │
-└──────────────┬───────────────┘
-               │
-               ▼
-┌──────────────────────────────┐
-│ Workload Assignment File     │
-│ (Auto Generated Excel/CSV)   │
-└──────────────┬───────────────┘
-               │
-               ▼
-┌──────────────────────────────┐
-│ Team Assignment              │
-│ - Assign Date                │
-│ - Assign Owner               │
-└──────────────┬───────────────┘
-               │
-               ▼
-┌──────────────────────────────┐
-│ Renewal Readiness Confirmed  │
-│ (All Logs Validated)         │
-└──────────────────────────────┘
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        :root { --primary-green: #0C7143; --dark-green: #0F5631; --light-bg: #F3F3F5; --text: #2C3E50; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: var(--light-bg); }
+        #sidebar { width: 250px; background: var(--primary-green); color: white; padding: 20px; }
+        .nav-item { padding: 15px; color: white; text-decoration: none; display: block; }
+        .nav-item:hover { background: var(--dark-green); }
+        #main { flex-grow: 1; padding: 40px; }
+        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h3>COMPANY LOGO</h3>
+        <a href="/dashboard" class="nav-item">🏠 Home</a>
+        <a href="/module/fundamentals" class="nav-item">📚 Fundamentals</a>
+        <a href="/module/tech_tools" class="nav-item">🛠️ Tech & Tools</a>
+        <a href="/module/customer_experience" class="nav-item">🤝 Customer Exp</a>
+        <a href="/module/compliance" class="nav-item">🛡️ Compliance</a>
+    </div>
+    <div id="main">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
+
+
+
+
+{% extends "base.html" %}
+{% block content %}
+<div class="card" style="max-width: 950px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    <div style="border-bottom: 2px solid #0C7143; margin-bottom: 25px; padding-bottom: 10px;">
+        <h1 style="color: #0C7143; margin: 0;">Module 1: Workforce Fundamentals</h1>
+        <p style="color: #555;">Master the core operational framework, KPI structures, and corporate conduct standards.</p>
+        <div style="background: #e0e0e0; height: 8px; border-radius: 4px; margin-top: 10px;">
+            <div id="progress-bar" style="background: #0C7143; width: 33%; height: 100%; border-radius: 4px; transition: 0.3s;"></div>
+        </div>
+    </div>
+ 
+    <div id="learning-content" style="min-height: 500px;">
+        </div>
+   
+    <div style="margin-top: 40px; display: flex; justify-content: space-between; align-items: center;">
+        <button id="prevBtn" onclick="navigate(-1)" disabled style="padding: 10px 25px; cursor: pointer;">Previous Page</button>
+        <span id="pageCounter" style="font-weight: bold;">Page 1 of 3</span>
+        <button id="nextBtn" onclick="navigate(1)" style="padding: 10px 25px; background: #0C7143; color: white; border: none; cursor: pointer; border-radius: 5px;">Next Page</button>
+    </div>
+</div>
+ 
+<script>
+const trainingPoints = [
+    { title: "1. The Concept of Shrinkage", content: "Context: Maintaining service levels requires accounting for time lost to meetings/breaks. Rule: All off-phone activity must be tracked. Application: Tag all non-productive tasks in the WFM portal." },
+    { title: "2. Adherence Metrics", content: "Context: Agents must follow schedules to manage traffic. Rule: Deviations over 5 mins require an override. Application: Notify your lead if finishing a call late." },
+    { title: "3. Service Level Targets", content: "Context: Customers expect prompt responses. Rule: 85% of inquiries within 30s. Application: Stay focused during peak call volumes." },
+    { title: "4. Forecasting Accuracy", content: "Context: Demand predictions prevent understaffing. Rule: Use historical data for proposals. Application: Verify peak trends via the dashboard." },
+    { title: "5. Occupancy Rates", content: "Context: High occupancy leads to burnout. Rule: Keep occupancy between 75-80%. Application: Alert WFM if trends exceed 85%." },
+    { title: "6. Handling Escalations", content: "Context: Complex cases need senior help. Rule: Only leads can override workflows. Application: Use Level 2 support only after standard guides." },
+    { title: "7. Break Management", content: "Context: Staggered breaks ensure coverage. Rule: Do not exceed allotted time. Application: Use the break-timer tool." },
+    { title: "8. Real-time Monitoring", content: "Context: Traffic spikes are unpredictable. Rule: Analysts manage intraday skews. Application: Follow real-time instructions from leads." },
+    { title: "9. Shift Bidding Ethics", content: "Context: Fairness is a corporate value. Rule: Assignment is based on tenure/performance. Application: Submit bids via the official portal." },
+    { title: "10. Queue Prioritization", content: "Context: Specific segments have SLAs. Rule: High-priority takes precedence. Application: Check queue status before accepting." },
+    { title: "11. Performance Feedback", content: "Context: Improvement is mandatory. Rule: Monthly reviews are required. Application: Prepare your KPI self-assessment early." },
+    { title: "12. Absence Procedures", content: "Context: Absences impact total capacity. Rule: Report 2 hours before shift. Application: Use the mobile portal for reporting." },
+    { title: "13. KPI Transparency", content: "Context: Data-driven culture builds trust. Rule: Metrics refresh every 15 mins. Application: Review score-cards every morning." },
+    { title: "14. Cross-Training", content: "Context: Multi-skilled agents provide agility. Rule: Complete two queue certifications. Application: Request training during reviews." },
+    { title: "15. Communication Channels", content: "Context: Internal updates change daily. Rule: Read updates on Slack/Teams. Application: Acknowledge daily briefings." },
+    { title: "16. Handling Outages", content: "Context: System downtime halts ops. Rule: Follow Disaster Recovery plan. Application: Wait for IT instructions during outages." },
+    { title: "17. Coaching Sessions", content: "Context: Skill gaps must be closed. Rule: Sessions are non-negotiable. Application: Block 30 mins in your calendar." },
+    { title: "18. Data Entry Accuracy", content: "Context: Improper logs ruin reports. Rule: Use specific Case ID formats. Application: Double-check IDs before submission." },
+    { title: "19. Client Privacy", content: "Context: We handle sensitive data. Rule: Never disclose internal IDs. Application: Use 3-factor security checks." },
+    { title: "20. Team Meetings", content: "Context: Alignment is vital. Rule: All-hands attendance is required. Application: Log in 5 mins early to test audio." },
+    { title: "21. Leave Approval", content: "Context: Staffing stability is needed. Rule: Request 2 weeks in advance. Application: Check availability before submission." },
+    { title: "22. Peer Support", content: "Context: Collaboration improves metrics. Rule: Mentor new joiners. Application: Set 1 hour weekly for mentoring." },
+    { title: "23. Error Logging", content: "Context: Prevent recurrence. Rule: Log all process errors. Application: Be honest when logging errors." },
+    { title: "24. Resource Allocation", content: "Context: Efficiency saves costs. Rule: Move resources to high-demand. Application: Alert lead to queue imbalances." },
+    { title: "25. Documentation Standards", content: "Context: Consistency for auditors. Rule: Use approved templates. Application: Use the 'Standard-Template' folder." },
+    { title: "26. Language Proficiency", content: "Context: Diverse markets served. Rule: Use approved language guidelines. Application: Stick to approved vocab lists." },
+    { title: "27. Feedback Loops", content: "Context: Employees are experts. Rule: Suggest improvements via portal. Application: Submit 1 improvement idea/quarter." },
+    { title: "28. Professional Tone", content: "Context: Reputation matters. Rule: Maintain a calm, professional tone. Application: Use 'Empathy Scripts' for frustration." },
+    { title: "29. Goal Setting", content: "Context: Ambition drives growth. Rule: Set quarterly individual goals. Application: Discuss goals with your manager." },
+    { title: "30. Final Certification", content: "Context: Excellence is the benchmark. Rule: Achieve 90% on assessments. Application: Prepare thoroughly before testing." }
+];
+ 
+let currentIdx = 0;
+function render() {
+    const start = currentIdx * 10;
+    const end = start + 10;
+    const pageData = trainingPoints.slice(start, end);
+   
+    document.getElementById('learning-content').innerHTML = pageData.map(p => `
+        <div style="margin-bottom: 20px; padding: 15px; border-left: 4px solid #0C7143; background: #f9f9f9;">
+            <h3 style="margin-top:0; color:#2c3e50;">${p.title}</h3>
+            <p style="color:#555; line-height:1.6;">${p.content}</p>
+        </div>
+    `).join('');
+   
+    document.getElementById('pageCounter').innerText = `Page ${currentIdx + 1} of 3`;
+    document.getElementById('progress-bar').style.width = ((currentIdx + 1) * 33) + '%';
+    document.getElementById('prevBtn').disabled = (currentIdx === 0);
+    document.getElementById('nextBtn').disabled = (currentIdx === 2);
+}
+ 
+function navigate(dir) {
+    currentIdx += dir;
+    render();
+}
+render();
+</script>
+{% endblock %}
