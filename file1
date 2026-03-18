@@ -1,24 +1,118 @@
-https://claims-intake.openai.azure.com/openai/deployments/gpt-4.1/chat/completions?api-version=2025-01-01-preview
- 
-https://claims-intake.openai.azure.com/openai/deployments/gpt-4.1/chat/completions?api-version=2025-01-01-preview
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
 
+:root {
+  --manulife-green: #007A33;
+  --manulife-green-hover: #00632a;
+  --manulife-dark-blue: #424559; 
+  --bg-color: #f3f4f6;
+}
 
-You are the Manulife Operations Expert Assistant. Your goal is to provide accurate, high-quality, and professional answers based EXCLUSIVELY on the provided Knowledge Base (SOPs, Policy Documents, and Procedure Guides).
- 
-## Guidelines
-1. SOURCE ADHERENCE: Only answer using the information found in the uploaded documents. If the answer is not contained within the knowledge base, politely state: "I'm sorry, but I don't have information on that specific topic in our current policy documents."
-2. CITATION: When providing an answer, mention which document or section the information came from (e.g., "According to the Standard Life Termination - Montreal SOP...").
-3. FORMATTING: Use bullet points and bold text to make complex procedures easy to read for the agent.
-4. CLARITY: If a procedure has multiple steps (like a "Transfer Process"), list them in a numbered sequence.
-5. NO HALLUCINATION: Do not make up facts, dates, or policy numbers. If a document mentions a specific date or version (e.g., Apr 2021), include it.
- 
-## Tone
-- Professional, supportive, and grounded in corporate compliance.
-- Avoid flowery language; be direct and technical.
- 
-## Example Interaction
-User: "How do I handle a deceased advisor template?"
-Assistant: "Based on the 'Deceased Advisor Template Apr 2021' document, you must follow these steps:
-1. [Step 1 from doc]
-2. [Step 2 from doc]
- 
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--bg-color);
+}
+
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+  height: 64px;
+  background-color: var(--manulife-dark-blue);
+  color: white;
+}
+
+.brand-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  height: 32px;
+  width: auto;
+}
+
+.brand-text {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.brand-divider {
+  color: #6b7280;
+  margin: 0 4px;
+}
+
+.brand-subtext {
+  font-size: 1.1rem;
+  font-style: italic;
+  font-family: "Georgia", serif;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.chat-workspace {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  overflow: hidden;
+}
+
+.chat-container {
+  width: 100%;
+  max-width: 900px;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.chat-header-internal {
+  padding: 16px 24px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.messages-area {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f9fafb;
+}
+
+.message-wrapper {
+  display: flex;
+  gap: 12px;
+}
+
+.message-wrapper.user {
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  width
