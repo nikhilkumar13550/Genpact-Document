@@ -1,10 +1,5 @@
-Could you please go into the Azure AI Foundry Portal -> Deployments -> [Your Model] -> Open in Playground -> View Code, and provide me with the Target URI for the standard Chat Completions endpoint?
-
-It should look something like this:
-https://[your-resource-name].openai.azure.com/openai/deployments/[deployment-name]/chat/completions?api-version=2024-02-15-preview
-
-Once we have that standard endpoint, the Entra ID token will work perfectly, and it will hold the connection open until the document answer is generated.
-
-What happens next?
-Once Ajay gives you that new URL (the one that ends in /chat/completions), we will make a small, 5-line change to your Python payload to match standard OpenAI formatting, and your POC will be 100% finished.
+https://claims-intake.openai.azure.com/openai/deployments/gpt-4.1/chat/completions?api-version=2025-01-01-preview
+ 
+https://claims-intake.openai.azure.com/openai/deployments/gpt-4.1/chat/completions?api-version=2025-01-01-preview
+ 
  
