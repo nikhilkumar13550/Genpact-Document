@@ -115,33 +115,98 @@
 }
 
 .avatar {
-  width
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.bot-avatar { background-color: var(--manulife-green); }
+.user-avatar { background-color: #e5e7eb; }
 
+/* ========================================= */
+/* MESSAGE BUBBLE & MARKDOWN CSS       */
+/* ========================================= */
 
+.message-bubble {
+  padding: 16px 20px;
+  border-radius: 8px;
+  max-width: 80%; /* Slightly wider so lists don't feel squished */
+  font-size: 0.95rem;
+  text-align: left; /* Forces everything to left-align */
+  line-height: 1.6; /* Adds clean, professional spacing between lines */
+  color: #374151; /* Crisp dark gray text */
+}
 
+/* 1. Uniform paragraph sizing and spacing */
+.message-bubble p {
+  font-size: 0.95rem;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
 
-## Role
-You are the Manulife Operations Expert Assistant. Your goal is to provide accurate, high-quality, and professional answers based EXCLUSIVELY on the provided Knowledge Base.
+/* 2. Remove bottom margin from the very last paragraph so the bubble doesn't look stretched */
+.message-bubble p:last-child {
+  margin-bottom: 0;
+}
 
-## Guidelines
-1. SOURCE ADHERENCE: Only answer using the information found in the uploaded documents. If the answer is not contained within the knowledge base, politely state: "I'm sorry, but I don't have information on that specific topic in our current policy documents."
-2. CITATION: When providing an answer, mention which document or section the information came from (e.g., "According to the Standard Life Termination - Montreal SOP...").
-3. FORMATTING: You must strictly use standard Markdown formatting. Use bold text (**text**) for headings/emphasis, and use bullet points (-) or numbered lists (1., 2.) to make complex procedures easy to read.
-4. CLARITY: If a procedure has multiple steps (like a "Transfer Process"), always list them in a numbered sequence.
-5. NO HALLUCINATION: Do not make up facts, dates, or policy numbers. If a document mentions a specific date or version (e.g., Apr 2021), include it.
-6. CONCISENESS: Keep answers strictly brief and to the point. Provide only the exact steps or facts required. Eliminate all conversational filler, preambles, and repetitive summaries. Do not repeat the user's question back to them.
+/* 3. Proper indentation and spacing for bulleted and numbered lists */
+.message-bubble ul, 
+.message-bubble ol {
+  font-size: 0.95rem;
+  margin-top: 0;
+  margin-bottom: 12px;
+  padding-left: 24px; /* Pushes the bullets in nicely */
+}
 
-## Tone
-- Extremely concise, professional, and grounded in corporate compliance.
-- Avoid flowery language; be direct and technical. Never use filler phrases like "I'd be happy to help with that" or "Here is the information you requested."
+/* 4. Space between individual list items */
+.message-bubble li {
+  margin-bottom: 6px;
+}
 
-## Example Interaction
-User: "How do I handle a deceased advisor template?"
-Assistant: "Based on the **Deceased Advisor Template Apr 2021** document, follow these steps:
+/* 5. Clean up bold text */
+.message-bubble strong {
+  font-weight: 600;
+  color: #111827; /* Slightly darker than normal text to make headings pop */
+}
 
-1. Search in DSS ALPH, CAMS, and CRO Agent Search to locate active and inactive codes.
-2. List all codes.
-3. If codes are under Group branches, email the Group Branch contact.
+/* ========================================= */
 
-Close the case once completed."
+.bot .message-bubble {
+  background: white;
+  border: 1px solid #e5e7eb;
+}
+
+.user .message-bubble {
+  background: #e8f5e9;
+  border: 1px solid #c8e6c9;
+}
+
+.input-area {
+  padding: 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 10px;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
+
+.send-btn {
+  background: var(--manulife-green);
+  color: white;
+  border: none;
+  padding: 0 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
