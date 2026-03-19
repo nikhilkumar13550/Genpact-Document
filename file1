@@ -85,3 +85,14 @@ def chat_endpoint(request: ChatRequest):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+
+
+UserWarning: response_mode='form_post' is recommended for better security. See https://www.rfc-editor.org/rfc/rfc9700.html#section-4.3.1
+  warnings.warn(
+Sending query using Foundry format: 'Hello' ...
+AZURE ERROR BODY: {"error":{"code":"BadRequest","message":"Missing required query parameter: api-version"}}
+INFO:     127.0.0.1:62143 - "POST /api/chat HTTP/1.1" 200 OK
+Sending query using Foundry format: 'How do I create a new deduction for an advisor?' ...
+AZURE ERROR BODY: {"error":{"code":"BadRequest","message":"Missing required query parameter: api-version"}}
+INFO:     127.0.0.1:62143 - "POST /api/chat HTTP/1.1" 200 OK
