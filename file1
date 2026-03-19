@@ -1,1 +1,72 @@
-Please open the KbChatBot deployment in Azure Foundry and go to the 'Consume' or 'Endpoints' tab. Could you provide the direct REST API Endpoint (it usually ends in /score, /chat, or /invoke) and the exact JSON payload format it expects?
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+import requests
+import urllib3
+from azure.identity import InteractiveBrowserCredential
+ 
+# 1. Hide the annoying "Insecure Request" warnings in the terminal
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+ 
+app = FastAPI()
+ 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+ 
+# 2. The NEW Standard OpenAI Endpoint Ajay provided
+FOUNDRY_ENDPOINT = "https://claims-intake.openai.azure.com/openai/deployments/gpt-4.1/chat/completions?api-version=2025-01-01-preview%22
+ 
+# 3. Secure Enterprise Auth
+credential = InteractiveBrowserCredential(connection_verify=False)
+ 
+class ChatRequest(BaseModel):
+    query: str
+    userId: str = "manulife_ops_user"
+ 
+@app.post("/api/chat")
+def chat_endpoint(request: ChatRequest):
+    try:
+        # 4. Updated Scope for the direct OpenAI endpoint
+        token_obj = credential.get_token("https://cognitiveservices.azure.com/.default")
+        token = token_obj.token
+ 
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {token}"
+        }
+ 
+        # 5. Standard OpenAI Payload (Synchronous)
+        payload = {
+            "messages": [
+                {"role": "user", "content": request.query}
+            ],
+            "temperature": 0.0, # Keeps the bot strictly factual
+            "max_tokens": 1000
+        }
+ 
+        print(f"Sending secure query to OpenAI: '{request.query}' ...")
+        response = requests.post(FOUNDRY_ENDPOINT, headers=headers, json=payload, verify=False)
+        print(f"--- AZURE STATUS: {response.status_code} ---")
+        if response.status_code not in [200, 201]:
+            print(f"AZURE ERROR BODY: {response.text}")
+            return {"answer": f"⚠️ Azure Error {response.status_code}. See Python terminal."}
+ 
+        data = response.json()
+        # 6. Extract the text from the standard OpenAI response structure
+        if "choices" in data and len(data["choices"]) > 0:
+            bot_text = data["choices"][0]["message"]["content"]
+            return {"answer": bot_text}
+        return {"answer": "⚠️ Received a response, but couldn't find the text. Check terminal."}
+ 
+    except Exception as e:
+        print(f"Python Error: {e}")
+        return {"answer": f"⚠️ Python connection error: {str(e)}"}
+ 
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
