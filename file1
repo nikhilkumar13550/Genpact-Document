@@ -3,10 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import requests
 import urllib3
+import logging
 from azure.identity import InteractiveBrowserCredential
 
-
+# 1. Hide the annoying warnings in the terminal
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+logging.getLogger("azure.identity").setLevel(logging.ERROR) # Hides that form_post warning!
 
 app = FastAPI()
 
@@ -18,10 +20,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# 2. Base URL ONLY (Removed the ?api-version= from the string)
+FOUNDRY_ENDPOINT = "https://claims-intake.services.ai.azure.com/api/projects/firstProject/applications/KbChatBot/protocols/openai/responses"
 
-FOUNDRY_ENDPOINT = "https://claims-intake.services.ai.azure.com/api/projects/firstProject/applications/KbChatBot/protocols/openai/responses?api-version=2025-11-15-preview"
-
-
+# 3. Secure Enterprise Auth
 credential = InteractiveBrowserCredential(connection_verify=False)
 
 class ChatRequest(BaseModel):
@@ -39,7 +41,7 @@ def chat_endpoint(request: ChatRequest):
             "Authorization": f"Bearer {token}"
         }
 
-       
+        # 4. Ajay's specific Foundry payload format
         payload = {
             "input": [
                 {
@@ -56,7 +58,14 @@ def chat_endpoint(request: ChatRequest):
 
         print(f"Sending query using Foundry format: '{request.query}' ...")
         
-        response = requests.post(FOUNDRY_ENDPOINT, headers=headers, json=payload, verify=False)
+        # 5. THE FIX: Pass api-version explicitly in the params argument!
+        response = requests.post(
+            FOUNDRY_ENDPOINT, 
+            headers=headers, 
+            json=payload, 
+            params={"api-version": "2025-11-15-preview"}, 
+            verify=False
+        )
         
         if response.status_code not in [200, 201]:
             print(f"AZURE ERROR BODY: {response.text}")
@@ -64,11 +73,11 @@ def chat_endpoint(request: ChatRequest):
 
         data = response.json()
         
+        # 6. Parse the Foundry response exactly how Ajay does
         parts = []
         for item in data.get("output", []):
             if isinstance(item, dict) and item.get("type") == "message":
                 for c in item.get("content", []):
-                    # Looks for 'output_text' exactly like Ajay's code does
                     if c.get("type") in ("text", "output_text") and c.get("text"):
                         parts.append(c["text"])
         
@@ -85,14 +94,3 @@ def chat_endpoint(request: ChatRequest):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-
-
-UserWarning: response_mode='form_post' is recommended for better security. See https://www.rfc-editor.org/rfc/rfc9700.html#section-4.3.1
-  warnings.warn(
-Sending query using Foundry format: 'Hello' ...
-AZURE ERROR BODY: {"error":{"code":"BadRequest","message":"Missing required query parameter: api-version"}}
-INFO:     127.0.0.1:62143 - "POST /api/chat HTTP/1.1" 200 OK
-Sending query using Foundry format: 'How do I create a new deduction for an advisor?' ...
-AZURE ERROR BODY: {"error":{"code":"BadRequest","message":"Missing required query parameter: api-version"}}
-INFO:     127.0.0.1:62143 - "POST /api/chat HTTP/1.1" 200 OK
