@@ -1,383 +1,87 @@
-# main.py — FastAPI backend (Published Foundry Agent via OpenAI-compatible Responses API)
-# ---------------------------------------------------------------------------------------
-# ✅ Auth: InteractiveBrowserCredential with AAD tokens
-# ✅ Endpoint: /protocols/openai (Published Agent Application)
-# ✅ api-version: 2025-11-15-preview — REQUIRED
-# ✅ Multi-turn: history sanitized + content types corrected per role
-# ✅ PPT: CXO-ready clean minimal deck (title, summary, highlights, chart slides)
-#
-# .env
-#   APPLICATION_OPENAI_BASE_URL=https://<resource>.services.ai.azure.com/api/projects/<proj>/applications/<app>/protocols/openai
-#   CORS_ORIGINS=http://localhost:5173
-#   AZURE_TENANT_ID=<optional>
-#   DISABLE_TLS_VERIFY=false
-
-import os, io, json, logging, re
-from typing import List, Optional, Dict, Any
-
-import urllib3, httpx
-from fastapi import FastAPI, Response
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from dotenv import load_dotenv
+import requests
+import urllib3
+from azure.identity import InteractiveBrowserCredential
 
-from pptx import Presentation
-from pptx.util import Inches, Pt
-from pptx.dml.color import RGBColor
-from pptx.chart.data import CategoryChartData
-from pptx.enum.chart import XL_CHART_TYPE
-from pptx.enum.text import PP_ALIGN
 
-from azure.identity import InteractiveBrowserCredential, get_bearer_token_provider
-from openai import OpenAI
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-load_dotenv()
-logger = logging.getLogger("uvicorn.error")
+app = FastAPI()
 
-# ---------------- Config ----------------
-APPLICATION_OPENAI_BASE_URL = os.getenv("APPLICATION_OPENAI_BASE_URL", "").rstrip("/")
-CORS_ORIGINS    = [o.strip() for o in os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",") if o.strip()]
-AZURE_TENANT_ID = os.getenv("AZURE_TENANT_ID") or None
-DISABLE_TLS_VERIFY = os.getenv("DISABLE_TLS_VERIFY", "false").lower() == "true"
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-if DISABLE_TLS_VERIFY:
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-app = FastAPI(title="Foundry Published Agent")
-app.add_middleware(CORSMiddleware, allow_origins=CORS_ORIGINS, allow_credentials=True,
-                   allow_methods=["*"], allow_headers=["*"])
+FOUNDRY_ENDPOINT = "https://claims-intake.services.ai.azure.com/api/projects/firstProject/applications/KbChatBot/protocols/openai/responses?api-version=2025-11-15-preview"
 
-# ---------------- OpenAI client ----------------
-credential = InteractiveBrowserCredential(tenant_id=AZURE_TENANT_ID, connection_verify=not DISABLE_TLS_VERIFY)
-provider   = get_bearer_token_provider(credential, "https://ai.azure.com/.default")
-_http      = httpx.Client(verify=not DISABLE_TLS_VERIFY, timeout=60)
-_client: Optional[OpenAI] = None
 
-def _get_client() -> OpenAI:
-    global _client
-    if _client is None:
-        if not APPLICATION_OPENAI_BASE_URL:
-            raise RuntimeError("Set APPLICATION_OPENAI_BASE_URL in .env")
-        _client = OpenAI(
-            api_key=provider,
-            base_url=APPLICATION_OPENAI_BASE_URL,
-            default_query={"api-version": "2025-11-15-preview"},
-            http_client=_http,
-        )
-    return _client
+credential = InteractiveBrowserCredential(connection_verify=False)
 
-# ---------------- Schemas ----------------
 class ChatRequest(BaseModel):
-    session_id: str
-    message: str
-    history: Optional[List[Dict[str, Any]]] = None
+    query: str
+    userId: str = "manulife_ops_user"
 
-class ChatResponse(BaseModel):
-    text: str
-    chart: Optional[Dict[str, Any]]
-    session_id: str
-
-class PPTRequest(BaseModel):
-    title: str
-    answer_text: str
-    chart:      Optional[Dict[str, Any]] = None
-    summary:    Optional[str]            = None
-    highlights: Optional[List[str]]      = []
-
-# ---------------- History sanitizer ----------------
-USER_TYPES      = {"input_text", "input_image", "input_file"}
-ASSISTANT_TYPES = {"output_text", "refusal"}
-
-def _correct_type(t: str, role: str) -> str:
-    if role == "assistant":
-        return t if t in ASSISTANT_TYPES else "output_text"
-    return t if t in USER_TYPES else "input_text"
-
-def _sanitize(msg: Dict[str, Any]) -> Dict[str, Any]:
-    role = msg.get("role", "user")
-    clean: Dict[str, Any] = {"role": role}
-    content = msg.get("content", [])
-    if isinstance(content, str):
-        t = "input_text" if role == "user" else "output_text"
-        clean["content"] = [{"type": t, "text": content}]
-        return clean
-    if isinstance(content, list):
-        blocks = []
-        for b in content:
-            if not isinstance(b, dict): continue
-            ct = _correct_type(b.get("type", ""), role)
-            cb: Dict[str, Any] = {"type": ct}
-            if "text" in b:      cb["text"]      = b["text"]
-            if "image_url" in b: cb["image_url"] = b["image_url"]
-            blocks.append(cb)
-        if not blocks:
-            t = "input_text" if role == "user" else "output_text"
-            blocks = [{"type": t, "text": ""}]
-        clean["content"] = blocks
-    return clean
-
-# ---------------- Chart helpers ----------------
-CHART_RE  = re.compile(r"```json\s*({[\s\S]*?})\s*```", re.IGNORECASE)
-PAIR_LINE = re.compile(r"^\s*([\w\s\-_/&]+)\s*[:=]\s*([0-9]+(?:\.[0-9]+)?)\s*$")
-
-def _extract_chart(text: str) -> Optional[Dict[str, Any]]:
-    for m in CHART_RE.finditer(text):
-        try:
-            obj = json.loads(m.group(1))
-            if isinstance(obj, dict):
-                if "chart" in obj: return obj["chart"]
-                if "bar_chart" in obj: return obj["bar_chart"]
-        except Exception: pass
-    xs, ys = [], []
-    for line in text.splitlines():
-        pm = PAIR_LINE.match(line)
-        if pm:
-            xs.append(pm.group(1).strip())
-            ys.append(float(pm.group(2)))
-    return {"type": "bar", "series": [{"name": "Series 1", "x": xs, "y": ys}]} if xs else None
-
-# ---------------- Chat route ----------------
-@app.post("/api/chat", response_model=ChatResponse)
-def chat(req: ChatRequest):
+@app.post("/api/chat")
+def chat_endpoint(request: ChatRequest):
     try:
-        client   = _get_client()
-        messages = [_sanitize(m) for m in (req.history or [])]
-        messages.append({"role": "user", "content": [{"type": "input_text", "text": req.message}]})
-        logger.debug("Sending %d messages to agent", len(messages))
-        response = client.responses.create(input=messages)
+        token_obj = credential.get_token("https://ai.azure.com/.default")
+        token = token_obj.token
 
-        text = getattr(response, "output_text", None)
-        if not text:
-            try:
-                data  = response.model_dump()
-                parts = []
-                for item in data.get("output", []) or []:
-                    if isinstance(item, dict) and item.get("type") == "message":
-                        for c in item.get("content", []) or []:
-                            if c.get("type") in ("text", "output_text") and c.get("text"):
-                                parts.append(c["text"])
-                text = "\n\n".join(parts) if parts else json.dumps(data, indent=2)
-            except Exception:
-                text = str(response)
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {token}"
+        }
 
-        chart = _extract_chart(text)
-        return ChatResponse(text=text, chart=chart, session_id=req.session_id)
+       
+        payload = {
+            "input": [
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "input_text", 
+                            "text": request.query
+                        }
+                    ]
+                }
+            ]
+        }
+
+        print(f"Sending query using Foundry format: '{request.query}' ...")
+        
+        response = requests.post(FOUNDRY_ENDPOINT, headers=headers, json=payload, verify=False)
+        
+        if response.status_code not in [200, 201]:
+            print(f"AZURE ERROR BODY: {response.text}")
+            return {"answer": f"⚠️ Azure Error {response.status_code}. See Python terminal."}
+
+        data = response.json()
+        
+        parts = []
+        for item in data.get("output", []):
+            if isinstance(item, dict) and item.get("type") == "message":
+                for c in item.get("content", []):
+                    # Looks for 'output_text' exactly like Ajay's code does
+                    if c.get("type") in ("text", "output_text") and c.get("text"):
+                        parts.append(c["text"])
+        
+        if parts:
+            bot_text = "\n\n".join(parts)
+            return {"answer": bot_text}
+            
+        return {"answer": "⚠️ Received a response, but couldn't find the text. Check terminal."}
+
     except Exception as e:
-        logger.exception("/api/chat error")
-        return ChatResponse(text=f"Error: {e}", chart=None, session_id=req.session_id)
-
-# ---------------- PPT helpers ----------------
-WHITE  = RGBColor(0xFF, 0xFF, 0xFF)
-BLACK  = RGBColor(0x1E, 0x29, 0x3B)   # slate-800
-ACCENT = RGBColor(0x25, 0x63, 0xEB)   # blue-600
-MUTED  = RGBColor(0x64, 0x74, 0x8B)   # slate-500
-LIGHT  = RGBColor(0xF1, 0xF5, 0xF9)   # slate-100
-
-def _fill(shape, color: RGBColor):
-    shape.fill.solid()
-    shape.fill.fore_color.rgb = color
-
-def _add_title_slide(prs: Presentation, title: str, subtitle: str):
-    sl  = prs.slides.add_slide(prs.slide_layouts[6])  # blank
-    W, H = prs.slide_width, prs.slide_height
-
-    # Full background
-    bg = sl.shapes.add_shape(1, 0, 0, W, H)
-    _fill(bg, WHITE)
-    bg.line.fill.background()
-
-    # Accent bar left
-    bar = sl.shapes.add_shape(1, 0, 0, Inches(0.18), H)
-    _fill(bar, ACCENT)
-    bar.line.fill.background()
-
-    # Title
-    tx = sl.shapes.add_textbox(Inches(0.5), Inches(2.8), Inches(8.5), Inches(1.4))
-    tf = tx.text_frame
-    tf.word_wrap = True
-    p  = tf.paragraphs[0]
-    p.text = title
-    p.font.size   = Pt(32)
-    p.font.bold   = True
-    p.font.color.rgb = BLACK
-
-    # Subtitle
-    tx2 = sl.shapes.add_textbox(Inches(0.5), Inches(4.3), Inches(8.5), Inches(0.6))
-    tf2 = tx2.text_frame
-    p2  = tf2.paragraphs[0]
-    p2.text = subtitle or "Executive Insights"
-    p2.font.size = Pt(14)
-    p2.font.color.rgb = MUTED
-
-def _add_content_slide(prs: Presentation, heading: str, body: str):
-    sl = prs.slides.add_slide(prs.slide_layouts[6])
-    W, H = prs.slide_width, prs.slide_height
-
-    bg = sl.shapes.add_shape(1, 0, 0, W, H)
-    _fill(bg, WHITE)
-    bg.line.fill.background()
-
-    # Header strip
-    hdr = sl.shapes.add_shape(1, 0, 0, W, Inches(1.1))
-    _fill(hdr, LIGHT)
-    hdr.line.fill.background()
-
-    # Accent line under header
-    acc = sl.shapes.add_shape(1, 0, Inches(1.1), W, Inches(0.04))
-    _fill(acc, ACCENT)
-    acc.line.fill.background()
-
-    # Heading
-    tx = sl.shapes.add_textbox(Inches(0.5), Inches(0.2), Inches(8.5), Inches(0.75))
-    p  = tx.text_frame.paragraphs[0]
-    p.text = heading
-    p.font.size = Pt(18)
-    p.font.bold = True
-    p.font.color.rgb = BLACK
-
-    # Body
-    tb = sl.shapes.add_textbox(Inches(0.5), Inches(1.3), Inches(9), Inches(5.2))
-    tf = tb.text_frame
-    tf.word_wrap = True
-    tf.text = (body or "")[:3000]
-    for para in tf.paragraphs:
-        para.font.size = Pt(13)
-        para.font.color.rgb = BLACK
-
-def _add_highlights_slide(prs: Presentation, summary: str, highlights: List[str]):
-    sl = prs.slides.add_slide(prs.slide_layouts[6])
-    W, H = prs.slide_width, prs.slide_height
-
-    bg = sl.shapes.add_shape(1, 0, 0, W, H)
-    _fill(bg, WHITE)
-    bg.line.fill.background()
-
-    hdr = sl.shapes.add_shape(1, 0, 0, W, Inches(1.1))
-    _fill(hdr, LIGHT)
-    hdr.line.fill.background()
-
-    acc = sl.shapes.add_shape(1, 0, Inches(1.1), W, Inches(0.04))
-    _fill(acc, ACCENT)
-    acc.line.fill.background()
-
-    tx = sl.shapes.add_textbox(Inches(0.5), Inches(0.2), Inches(8.5), Inches(0.75))
-    p  = tx.text_frame.paragraphs[0]
-    p.text = "Key Highlights"
-    p.font.size = Pt(18)
-    p.font.bold = True
-    p.font.color.rgb = BLACK
-
-    # Summary line
-    if summary:
-        sx = sl.shapes.add_textbox(Inches(0.5), Inches(1.25), Inches(9), Inches(0.5))
-        sp = sx.text_frame.paragraphs[0]
-        sp.text = summary
-        sp.font.size = Pt(13)
-        sp.font.italic = True
-        sp.font.color.rgb = MUTED
-
-    # Highlight bullets
-    top = Inches(1.9) if summary else Inches(1.3)
-    for i, hl in enumerate(highlights or []):
-        row = sl.shapes.add_shape(1, Inches(0.5), top + Inches(i * 0.72), Inches(9), Inches(0.62))
-        _fill(row, LIGHT if i % 2 == 0 else WHITE)
-        row.line.fill.background()
-
-        dot = sl.shapes.add_shape(1, Inches(0.55), top + Inches(i * 0.72) + Inches(0.2), Inches(0.12), Inches(0.12))
-        _fill(dot, ACCENT)
-        dot.line.fill.background()
-
-        bx = sl.shapes.add_textbox(Inches(0.8), top + Inches(i * 0.72) + Inches(0.1), Inches(8.6), Inches(0.45))
-        bp = bx.text_frame.paragraphs[0]
-        bp.text = hl
-        bp.font.size = Pt(13)
-        bp.font.color.rgb = BLACK
-
-def _add_chart_slide(prs: Presentation, chart: Dict[str, Any]):
-    sl = prs.slides.add_slide(prs.slide_layouts[6])
-    W, H = prs.slide_width, prs.slide_height
-
-    bg = sl.shapes.add_shape(1, 0, 0, W, H)
-    _fill(bg, WHITE)
-    bg.line.fill.background()
-
-    hdr = sl.shapes.add_shape(1, 0, 0, W, Inches(1.1))
-    _fill(hdr, LIGHT)
-    hdr.line.fill.background()
-
-    acc = sl.shapes.add_shape(1, 0, Inches(1.1), W, Inches(0.04))
-    _fill(acc, ACCENT)
-    acc.line.fill.background()
-
-    tx = sl.shapes.add_textbox(Inches(0.5), Inches(0.2), Inches(8.5), Inches(0.75))
-    p  = tx.text_frame.paragraphs[0]
-    p.text = chart.get("title") or "Data Visualization"
-    p.font.size = Pt(18)
-    p.font.bold = True
-    p.font.color.rgb = BLACK
-
-    # Build chart data
-    cd = CategoryChartData()
-    categories: List[str] = []
-    for s in chart.get("series", []):
-        for x in s.get("x", []):
-            if x not in categories:
-                categories.append(x)
-    cd.categories = categories
-    for s in chart.get("series", []):
-        name   = s.get("name", "Series")
-        sx, sy = s.get("x", []), s.get("y", [])
-        vals   = [sy[sx.index(c)] if c in sx else 0 for c in categories]
-        cd.add_series(name, vals)
-
-    chart_type = XL_CHART_TYPE.LINE if chart.get("type") == "line" else \
-                 XL_CHART_TYPE.PIE  if chart.get("type") == "pie"  else \
-                 XL_CHART_TYPE.COLUMN_CLUSTERED
-
-    sl.shapes.add_chart(chart_type, Inches(0.6), Inches(1.25), Inches(8.8), Inches(5.0), cd)
-
-# ---------------- PPT route ----------------
-@app.post("/api/generate_ppt")
-def generate_ppt(req: PPTRequest):
-    prs = Presentation()
-    prs.slide_width  = Inches(10)
-    prs.slide_height = Inches(7.5)
-
-    # 1. Title slide
-    _add_title_slide(prs, req.title or "Insight Deck", req.summary or "Auto-generated from Foundry Agent")
-
-    # 2. Executive summary + full insight text
-    _add_content_slide(prs, "Executive Insight", req.answer_text or "")
-
-    # 3. Key highlights (only if provided)
-    if req.highlights:
-        _add_highlights_slide(prs, req.summary or "", req.highlights)
-
-    # 4. Chart slide (only if chart data present)
-    if req.chart and req.chart.get("series"):
-        _add_chart_slide(prs, req.chart)
-
-    out = io.BytesIO()
-    prs.save(out)
-    out.seek(0)
-    return Response(
-        content=out.read(),
-        media_type="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        headers={"Content-Disposition": 'attachment; filename="cxo_insight_deck.pptx"'},
-    )
-
-# ---------------- Health ----------------
-@app.get("/api/health")
-def health():
-    return {"status": "ok", "application_base": APPLICATION_OPENAI_BASE_URL, "tls_disabled": DISABLE_TLS_VERIFY}
+        print(f"Python Error: {e}")
+        return {"answer": f"⚠️ Python connection error: {str(e)}"}
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-
-
-
-
-https://teams.microsoft.com/l/message/19:07a30982-6051-45fb-8e7e-1dcf62d9d190_339e45ea-a2c0-40c3-a4d7-81fc355ebbc0@unq.gbl.spaces/1773917418311?context=%7B%22contextType%22%3A%22chat%22%7D
-https://claims-intake.services.ai.azure.com/api/projects/firstProject/applications/KbChatBot/protocols/openai/responses?api-version=2025-11-15-preview
